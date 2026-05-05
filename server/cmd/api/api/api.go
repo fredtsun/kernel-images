@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"os/exec"
 	"sync"
@@ -19,6 +20,14 @@ import (
 	"github.com/kernel/kernel-images/server/lib/recorder"
 	"github.com/kernel/kernel-images/server/lib/scaletozero"
 )
+
+type cdpMonitorController interface {
+	Start(ctx context.Context) error
+	Stop()
+	IsRunning() bool
+}
+
+var _ cdpMonitorController = (*cdpmonitor.Monitor)(nil)
 
 type ApiService struct {
 	// defaultRecorderID is used whenever the caller doesn't specify an explicit ID.
@@ -73,7 +82,7 @@ type ApiService struct {
 
 	// CDP event pipeline and cdpMonitor.
 	captureSession  *events.CaptureSession
-	cdpMonitor      *cdpmonitor.Monitor
+	cdpMonitor      cdpMonitorController
 	monitorMu       sync.Mutex
 	lifecycleCtx    context.Context
 	lifecycleCancel context.CancelFunc
@@ -103,7 +112,7 @@ func New(
 		return nil, fmt.Errorf("captureSession cannot be nil")
 	}
 
-	mon := cdpmonitor.New(upstreamMgr, captureSession.Publish, displayNum)
+	mon := cdpmonitor.New(upstreamMgr, captureSession.Publish, displayNum, slog.Default())
 	ctx, cancel := context.WithCancel(context.Background())
 
 	return &ApiService{
