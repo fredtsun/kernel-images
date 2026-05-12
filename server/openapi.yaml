@@ -1334,6 +1334,30 @@ paths:
             text/event-stream:
               schema:
                 $ref: "#/components/schemas/PublishedEnvelope"
+  /scaletozero/disable:
+    post:
+      summary: Idempotently disable scale to zero on this VM.
+      description: >
+        Prevents the VM from scaling to zero, regardless of HTTP traffic on it.
+        Calling the API on this VM will wake it because Unikraft will automatically wake for any request to the VM.
+      operationId: disableScaleToZero
+      responses:
+        "204":
+          description: Scale-to-zero disabled
+        "500":
+          $ref: "#/components/responses/InternalError"
+  /scaletozero/enable:
+    post:
+      summary: Idempotently enable scale to zero on this VM.
+      description: >
+        Restores normal scale-to-zero behavior on this VM, allowing it to
+        scale to zero again when idle. Call this when the VM no longer needs to be held awake.
+      operationId: enableScaleToZero
+      responses:
+        "204":
+          description: Scale-to-zero enabled
+        "500":
+          $ref: "#/components/responses/InternalError"
 components:
   schemas:
     Event:
