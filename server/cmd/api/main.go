@@ -102,6 +102,17 @@ func main() {
 	}
 	captureSession := capturesession.NewCaptureSession(eventStream)
 
+	// Optional S2 storage sink.
+	var s2Writer *events.S2StorageWriter
+	if config.S2Basin != "" && config.S2AccessToken != "" && config.S2Stream != "" {
+		slogger.Info("S2 storage enabled", "basin", config.S2Basin, "stream", config.S2Stream)
+		s2Writer = events.NewS2StorageWriter(eventStream, config.S2Basin, config.S2AccessToken, config.S2Stream, events.S2Config{}, slogger)
+		if err := s2Writer.Start(ctx); err != nil {
+			slogger.Error("failed to start S2 storage writer", "err", err)
+			os.Exit(1)
+		}
+	}
+
 	apiService, err := api.New(
 		recorder.NewFFmpegManager(),
 		recorder.NewFFmpegRecorderFactory(config.PathToFFmpeg, defaultParams, stz),
@@ -268,6 +279,16 @@ func main() {
 
 	if err := g.Wait(); err != nil {
 		slogger.Error("server failed to shutdown", "err", err)
+	}
+
+	// s2Writer shuts down after the servers above, since they might produce events we
+	// want to capture into the stream; we must let them finish before closing the writer.
+	if s2Writer != nil {
+		stopCtx, stopCancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer stopCancel()
+		if err := s2Writer.Stop(stopCtx); err != nil {
+			slogger.Error("s2 storage writer stop failed", "err", err)
+		}
 	}
 }
 

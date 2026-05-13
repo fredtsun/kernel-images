@@ -80,6 +80,31 @@ type Reader struct {
 	nextSeq uint64
 }
 
+// TryRead returns the next available result without blocking. Returns
+// (result, true) if data is available, (ReadResult{}, false) if the reader
+// has caught up to the latest published seq.
+func (r *Reader) TryRead() (ReadResult, bool) {
+	r.rb.mu.RLock()
+	defer r.rb.mu.RUnlock()
+
+	latest := r.rb.latestSeq
+	oldest := r.rb.oldestSeq()
+
+	if latest == 0 || r.nextSeq > latest {
+		return ReadResult{}, false
+	}
+
+	if r.nextSeq < oldest {
+		dropped := oldest - r.nextSeq
+		r.nextSeq = oldest
+		return ReadResult{Dropped: dropped}, true
+	}
+
+	env := r.rb.buf[r.nextSeq%r.rb.cap]
+	r.nextSeq++
+	return ReadResult{Envelope: &env}, true
+}
+
 // Read blocks until the next envelope is available or ctx is cancelled.
 func (r *Reader) Read(ctx context.Context) (ReadResult, error) {
 	for {

@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log/slog"
 	"time"
 
 	"github.com/kelseyhightower/envconfig"
@@ -35,6 +36,36 @@ type Config struct {
 	// DevTools proxy address passed to ChromeDriver as goog:chromeOptions.debuggerAddress.
 	// If empty, it is derived from DevToolsProxyPort as 127.0.0.1:<port>.
 	DevToolsProxyAddr string `envconfig:"DEVTOOLS_PROXY_ADDR" default:""`
+
+	// S2 durable event storage. All three fields must be set to enable the S2 sink.
+	S2Basin       string `envconfig:"S2_BASIN"        default:""`
+	S2AccessToken string `envconfig:"S2_ACCESS_TOKEN" default:""`
+	S2Stream      string `envconfig:"S2_STREAM"       default:""`
+}
+
+// LogValue implements slog.LogValuer, redacting secret fields.
+func (c *Config) LogValue() slog.Value {
+	s2AccessToken := ""
+	if c.S2AccessToken != "" {
+		s2AccessToken = "[redacted]"
+	}
+	return slog.GroupValue(
+		slog.Int("port", c.Port),
+		slog.Int("frame_rate", c.FrameRate),
+		slog.Int("display_num", c.DisplayNum),
+		slog.Int("max_size_mb", c.MaxSizeInMB),
+		slog.String("output_dir", c.OutputDir),
+		slog.String("ffmpeg_path", c.PathToFFmpeg),
+		slog.Int("devtools_proxy_port", c.DevToolsProxyPort),
+		slog.Bool("log_cdp_messages", c.LogCDPMessages),
+		slog.Duration("scale_to_zero_cooldown", c.ScaleToZeroCooldown),
+		slog.Int("chromedriver_proxy_port", c.ChromeDriverProxyPort),
+		slog.String("chromedriver_upstream_addr", c.ChromeDriverUpstreamAddr),
+		slog.String("devtools_proxy_addr", c.DevToolsProxyAddr),
+		slog.String("s2_basin", c.S2Basin),
+		slog.String("s2_access_token", s2AccessToken),
+		slog.String("s2_stream", c.S2Stream),
+	)
 }
 
 // Load loads configuration from environment variables
