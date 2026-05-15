@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/kernel/kernel-images/server/lib/events"
+	oapi "github.com/kernel/kernel-images/server/lib/oapi"
 )
 
 const (
@@ -76,6 +77,13 @@ func (s *computedState) navSnapshot() (json.RawMessage, map[string]string) {
 	return s.navData, s.navMeta
 }
 
+// currentNavSeq returns the current navigation sequence number under mu.
+func (s *computedState) currentNavSeq() int {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.navSeq
+}
+
 // navDataWith merges extra fields into the current nav payload.
 // Nav context fields (session_id, target_id, etc.) always take precedence over
 // caller-supplied extra so a page-controlled payload cannot forge nav identity.
@@ -90,6 +98,20 @@ func (s *computedState) navDataWith(extra map[string]any) json.RawMessage {
 	}
 	out, _ := json.Marshal(result)
 	return out
+}
+
+
+// currentNavCtxFields returns the current nav context fields for constructing typed event payloads.
+// Returns zero values if s is nil (before first navigation).
+func (s *computedState) currentNavCtxFields() (sessionID, targetID, targetType, frameID, loaderID, url string, navSeq int64) {
+	if s == nil {
+		return
+	}
+	s.mu.Lock()
+	ctx := s.navCtx
+	seq := int64(s.navSeq)
+	s.mu.Unlock()
+	return ctx.sessionID, ctx.targetID, ctx.targetType, ctx.frameID, ctx.loaderID, ctx.url, seq
 }
 
 func stopTimer(t *time.Timer) {
@@ -203,7 +225,6 @@ func (s *computedState) startNetIdleTimer() {
 	}
 	stopTimer(s.netTimer)
 	navSeq := s.navSeq
-	navData := s.navData
 	navMeta := s.navMeta
 	s.netTimer = time.AfterFunc(networkIdleDebounce, func() {
 		s.mu.Lock()
@@ -212,16 +233,15 @@ func (s *computedState) startNetIdleTimer() {
 			return
 		}
 		s.netFired = true
+		ctx := s.navCtx
+		seq := s.navSeq
 		s.mu.Unlock()
 		s.publish(events.Event{
 			Ts:       time.Now().UnixMicro(),
 			Type:     EventNetworkIdle,
-			Category: events.CategoryNetwork,
-			Source: events.Source{
-				Kind:     events.KindCDP,
-				Metadata: navMeta,
-			},
-			Data: navData,
+			Category: events.Network,
+			Source:   oapi.BrowserEventSource{Kind: oapi.Cdp, Metadata: &navMeta},
+			Data:     marshalNavEventContext(ctx, seq),
 		})
 	})
 }
@@ -265,17 +285,15 @@ func (s *computedState) emitLayoutSettled(navSeq int) {
 	}
 	s.layoutFired = true
 	s.navLayoutSettled = true
-	navData := s.navData
+	ctx := s.navCtx
+	seq := s.navSeq
 	navMeta := s.navMeta
 	evs := []events.Event{{
 		Ts:       time.Now().UnixMicro(),
 		Type:     EventLayoutSettled,
-		Category: events.CategoryPage,
-		Source: events.Source{
-			Kind:     events.KindCDP,
-			Metadata: navMeta,
-		},
-		Data: navData,
+		Category: events.Page,
+		Source:   oapi.BrowserEventSource{Kind: oapi.Cdp, Metadata: &navMeta},
+		Data:     marshalNavEventContext(ctx, seq),
 	}}
 	evs = append(evs, s.pendingNavigationSettled()...)
 	s.mu.Unlock()
@@ -303,15 +321,15 @@ func (s *computedState) pendingNavigationSettled() []events.Event {
 	}
 	if s.navDOMLoaded && s.navLayoutSettled && !s.navFired {
 		s.navFired = true
+		ctx := s.navCtx
+		seq := s.navSeq
+		navMeta := s.navMeta
 		return []events.Event{{
 			Ts:       time.Now().UnixMicro(),
 			Type:     EventNavigationSettled,
-			Category: events.CategoryPage,
-			Source: events.Source{
-				Kind:     events.KindCDP,
-				Metadata: s.navMeta,
-			},
-			Data: s.navData,
+			Category: events.Page,
+			Source:   oapi.BrowserEventSource{Kind: oapi.Cdp, Metadata: &navMeta},
+			Data:     marshalNavEventContext(ctx, seq),
 		}}
 	}
 	return nil

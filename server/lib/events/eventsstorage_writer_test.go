@@ -60,7 +60,7 @@ func newTestStream(t *testing.T, capacity int) *EventStream {
 }
 
 func makeEvent(typ string) Event {
-	return Event{Type: typ, Category: CategorySystem}
+	return Event{Type: typ, Category: System}
 }
 
 func TestStorageWriter_NormalAppend(t *testing.T) {

@@ -1194,94 +1194,86 @@ paths:
           $ref: "#/components/responses/BadRequestError"
         "500":
           $ref: "#/components/responses/InternalError"
-  /events/capture_session:
+  /telemetry:
     get:
-      summary: Get the capture session
+      summary: Get telemetry configuration
       description: >
-        Returns the current state of the capture session. Returns 404 if
-        no session is active.
-      operationId: getCaptureSession
+        Returns the current telemetry configuration. Returns 404 if telemetry
+        is not configured.
+      operationId: getTelemetry
       responses:
         "200":
-          description: Session state
+          description: Telemetry configuration
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CaptureSession"
+                $ref: "#/components/schemas/TelemetryState"
         "404":
           $ref: "#/components/responses/NotFoundError"
-    post:
-      summary: Start the capture session
+    put:
+      summary: Set telemetry configuration
       description: >
-        Starts the capture session. At most one session may exist at a
-        time; returns 409 if a session is already active. The caller must
-        DELETE the existing session before starting a new one.
-      operationId: startCaptureSession
+        Sets the telemetry configuration. Returns 201 if telemetry was not
+        previously configured; returns 200 if it was. Setting all four categories
+        to enabled: false clears the configuration; this is idempotent when
+        telemetry is not configured.
+      operationId: putTelemetry
       requestBody:
         required: false
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/StartCaptureSessionRequest"
+              $ref: "#/components/schemas/BrowserTelemetryConfig"
       responses:
-        "201":
-          description: Session started
+        "200":
+          description: Telemetry configuration updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CaptureSession"
+                $ref: "#/components/schemas/TelemetryState"
+        "201":
+          description: Telemetry configuration set
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TelemetryState"
         "400":
           $ref: "#/components/responses/BadRequestError"
-        "409":
-          $ref: "#/components/responses/ConflictError"
         "500":
           $ref: "#/components/responses/InternalError"
     patch:
-      summary: Update the capture session
+      summary: Update telemetry configuration
       description: >
-        Updates the active capture session. Returns 404 if no session is
-        active.
-      operationId: updateCaptureSession
+        Partially updates the telemetry configuration. Only categories explicitly
+        set in the request body are changed; omitted categories retain their
+        current settings. Returns 404 if telemetry is not configured. Setting
+        all four categories to enabled: false clears the configuration.
+      operationId: patchTelemetry
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateCaptureSessionRequest"
+              $ref: "#/components/schemas/BrowserTelemetryConfig"
       responses:
         "200":
-          description: Session updated
+          description: Telemetry configuration updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CaptureSession"
+                $ref: "#/components/schemas/TelemetryState"
         "400":
           $ref: "#/components/responses/BadRequestError"
         "404":
           $ref: "#/components/responses/NotFoundError"
-    delete:
-      summary: Stop the capture session
-      description: >
-        Stops the capture session and its CDP monitor, returning the final
-        session state. Returns 404 if no session is active.
-      operationId: stopCaptureSession
-      responses:
-        "200":
-          description: Session stopped
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CaptureSession"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-  /events/publish:
+  /telemetry/events:
     post:
-      summary: Publish an event into the event bus
+      summary: Publish an event into the telemetry stream
       description: >
-        Injects an event into the global event bus.
+        Injects an event into the telemetry stream.
         The event is assigned a monotonically increasing sequence number and
         fanned out to all open stream connections.
-      operationId: publishEvent
+      operationId: publishTelemetryEvent
       requestBody:
         required: true
         content:
@@ -1294,23 +1286,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PublishedEnvelope"
+                $ref: "#/components/schemas/TelemetryEnvelope"
         "400":
           $ref: "#/components/responses/BadRequestError"
-  /events/stream:
+  /telemetry/stream:
     get:
-      summary: Stream events as Server-Sent Events
+      summary: Stream telemetry events as Server-Sent Events
       description: >
-        Opens a live SSE stream of events from the global event bus.
+        Opens a live SSE stream of telemetry events.
         Each frame has the form `id: {seq}\ndata: {envelope-json}\n\n`.
-        Sequence numbers are process-monotonic and do not reset between sessions;
-        a Last-Event-ID from any previous session is valid for resuming the stream.
+        Sequence numbers are process-monotonic and persist across configuration
+        changes; a Last-Event-ID from any previous connection is valid for resuming the stream.
         Drops are signaled by gaps in the `id` field: if the received `id` is more
         than 1 ahead of the last-seen `id`, events were evicted from the buffer.
         Clients should track the last-seen `id` to detect gaps.
         Fresh connections with no Last-Event-ID start from the current sequence
         and only see new events.
-      operationId: streamEvents
+        The wire shape is the generic `TelemetryEvent`. For browser events
+        emitted by the Kernel image (or by callers using a documented `type`),
+        the event's `data` conforms to the matching `Browser*EventData`
+        schema, selected by `type`.
+      operationId: streamTelemetryEvents
       parameters:
         - in: header
           name: Last-Event-ID
@@ -1320,10 +1316,10 @@ paths:
           description: >
             Resume after this sequence number. Omit or send 0 to start from
             the current position. Sequence numbers are process-monotonic, so
-            a value from a previous session resumes correctly from that point.
+            any previous value resumes correctly from that point.
       responses:
         "200":
-          description: Live SSE stream of events.
+          description: Live SSE stream of telemetry events.
           headers:
             X-SSE-Content-Type:
               description: Media type of SSE data events (application/json)
@@ -1333,7 +1329,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: "#/components/schemas/PublishedEnvelope"
+                $ref: "#/components/schemas/TelemetryEnvelope"
   /scaletozero/disable:
     post:
       summary: Idempotently disable scale to zero on this VM.
@@ -1360,9 +1356,14 @@ paths:
           $ref: "#/components/responses/InternalError"
 components:
   schemas:
-    Event:
+    TelemetryEvent:
       type: object
-      description: A capture event.
+      description: >
+        A telemetry event. The wire-level event shape accepted by the publish
+        endpoint and emitted on the SSE stream. Arbitrary `type` strings and
+        `data` payloads are admitted. For browser events emitted by the Kernel
+        image, `data` conforms to the per-type schema documented in the
+        `Browser*Event` / `Browser*EventData` definitions, selected by `type`.
       required:
         - type
       properties:
@@ -1381,24 +1382,29 @@ components:
             - network
             - page
             - interaction
-            - liveview
-            - captcha
             - system
         source:
-          $ref: "#/components/schemas/EventSource"
+          $ref: "#/components/schemas/BrowserEventSource"
         data:
-          description: Arbitrary event payload.
+          description: >
+            Arbitrary JSON payload. For browser events listed in
+            `KnownBrowserTelemetryEvent`, the payload conforms to the
+            corresponding `Browser*EventData` schema.
         truncated:
           type: boolean
           description: Set by the server when the data field was truncated to fit the size limit.
-    EventSource:
+    BrowserEventSource:
       type: object
-      description: Provenance of the event.
+      description: Provenance metadata identifying which producer emitted the event.
+      required: [kind]
       properties:
         kind:
           type: string
           description: >
-            Source kind. "kernel_api" is reserved for server-generated events.
+            Event producer. `cdp`: Chrome DevTools Protocol events from the
+            browser. `kernel_api`: Kernel API server (reserved for
+            server-generated events). `extension`: injected Chrome extension.
+            `local_process`: system process running alongside the browser.
           enum:
             - cdp
             - kernel_api
@@ -1406,14 +1412,16 @@ components:
             - local_process
         event:
           type: string
+          description: Producer-specific event name (e.g. `Runtime.consoleAPICalled` for CDP-sourced console events).
         metadata:
           type: object
+          description: Producer-specific context (e.g. CDP target/session/frame IDs).
           additionalProperties:
             type: string
       additionalProperties: false
     PublishEventRequest:
       type: object
-      description: Request body for publishing an event into the event bus.
+      description: Request body for publishing an event into the telemetry stream.
       required:
         - type
       properties:
@@ -1428,16 +1436,14 @@ components:
             - network
             - page
             - interaction
-            - liveview
-            - captcha
             - system
           default: system
         source:
-          $ref: "#/components/schemas/EventSource"
+          $ref: "#/components/schemas/BrowserEventSource"
         data:
-          description: Capture Session Event Payload
+          description: Telemetry event payload.
       additionalProperties: false
-    PublishedEnvelope:
+    TelemetryEnvelope:
       type: object
       description: The envelope assigned to a successfully published event.
       required:
@@ -1453,73 +1459,997 @@ components:
             the server. Use with Last-Event-ID to resume the SSE stream from
             this point.
         event:
-          $ref: "#/components/schemas/Event"
+          $ref: "#/components/schemas/TelemetryEvent"
       additionalProperties: false
-    CaptureConfig:
+    BrowserTelemetryConfig:
       type: object
-      description: Capture filtering preferences.
+      description: >
+        Telemetry configuration for a browser. Per-category capture settings.
+        Omit a category or set enabled: true to capture it.
+        Set enabled: false to exclude it.
+        Omit the browser key entirely to capture all categories.
+        Set all four categories to enabled: false to clear the telemetry configuration.
       properties:
-        categories:
-          type: array
-          description: >
-            Event categories to capture. When omitted or empty, all
-            categories are captured.
-          items:
-            type: string
-            enum:
-              - console
-              - network
-              - page
-              - interaction
-              - liveview
-              - captcha
-              - system
+        browser:
+          $ref: "#/components/schemas/BrowserTelemetryCategoriesConfig"
       additionalProperties: false
-    CaptureSession:
+    BrowserTelemetryCategoriesConfig:
       type: object
-      description: A capture session resource.
+      description: Per-category telemetry capture settings for browser events.
+      properties:
+        console:
+          $ref: "#/components/schemas/BrowserTelemetryCategoryConfig"
+          description: Console output (log, warn, error) and uncaught exceptions.
+        page:
+          $ref: "#/components/schemas/BrowserTelemetryCategoryConfig"
+          description: Page lifecycle events (navigation, load, layout shifts, LCP).
+        interaction:
+          $ref: "#/components/schemas/BrowserTelemetryCategoryConfig"
+          description: User interaction events (clicks, keydowns, scroll).
+        network:
+          $ref: "#/components/schemas/BrowserTelemetryCategoryConfig"
+          description: HTTP request/response metadata.
+      additionalProperties: false
+    BrowserTelemetryCategoryConfig:
+      type: object
+      description: Configuration for a single telemetry category.
+      properties:
+        enabled:
+          type: boolean
+          description: >
+            Whether this category is captured. In PUT requests, omitting this field
+            defaults to true (category enabled). In PATCH requests, omitting this field
+            (or sending an empty object `{}`) is a no-op; the category retains its
+            current state. To enable or disable a category via PATCH, you must send
+            an explicit `true` or `false`.
+      additionalProperties: false
+    BrowserCallStack:
+      type: object
+      description: >
+        CDP Runtime.StackTrace representing the JavaScript call stack at the
+        time of an event. Fields use CDP naming conventions rather than
+        snake_case to match the Chrome DevTools Protocol wire format.
+      required: [callFrames]
+      properties:
+        description:
+          type: string
+          description: Optional label for the stack trace (e.g. async cause).
+        callFrames:
+          type: array
+          description: Ordered list of call frames, outermost first.
+          items:
+            type: object
+            required: [functionName, scriptId, url, lineNumber, columnNumber]
+            properties:
+              functionName:
+                type: string
+                description: JavaScript function name, or empty string for anonymous functions.
+              scriptId:
+                type: string
+                description: CDP script identifier.
+              url:
+                type: string
+                description: URL or name of the script file.
+              lineNumber:
+                type: integer
+                description: Zero-based line number within the script.
+              columnNumber:
+                type: integer
+                description: Zero-based column number within the line.
+        parent:
+          $ref: "#/components/schemas/BrowserCallStack"
+          description: Parent stack trace for async stacks.
+    BrowserHttpHeaders:
+      type: object
+      description: >
+        HTTP headers map forwarded as-is from CDP without normalization.
+        Values are typically strings but may be any JSON type.
+      additionalProperties: true
+    BrowserTargetType:
+      type: string
+      description: CDP target type of the page that produced the event.
+      enum: [page, background_page, service_worker, shared_worker, other]
+    BrowserEventContext:
+      type: object
+      description: >
+        Browser event context stamped by the browser monitor onto all
+        CDP-sourced events. Identifies the target, frame, and navigation epoch
+        in which the event occurred.
+      required: [session_id, target_id, target_type, nav_seq]
+      properties:
+        session_id:
+          type: string
+          description: CDP session identifier for the target connection.
+        target_id:
+          type: string
+          description: Browser target identifier (stable across navigations within a tab).
+        target_type:
+          $ref: "#/components/schemas/BrowserTargetType"
+        frame_id:
+          type: string
+          description: CDP frame identifier within the target.
+        loader_id:
+          type: string
+          description: CDP document loader identifier, reset on each navigation.
+        url:
+          type: string
+          description: URL relevant to this event; page URL for navigation and page events, request URL for network events.
+        nav_seq:
+          type: integer
+          format: int64
+          description: Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+    BrowserConsoleLogEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [level, text]
+          properties:
+            level:
+              type: string
+              description: >
+                CDP Runtime.consoleAPICalled type, passed through unfiltered
+                from Chrome. `error` is routed to console_error events instead;
+                all other CDP console types appear here. See CDP spec for the
+                full enum.
+            text:
+              type: string
+              description: First console argument coerced to string.
+            args:
+              type: array
+              description: All console arguments coerced to strings.
+              items:
+                type: string
+            stack_trace:
+              $ref: "#/components/schemas/BrowserCallStack"
+    BrowserConsoleLogEvent:
+      type: object
+      description: A browser console log event (console.log, console.info, console.warn, etc.).
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: console_log
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserConsoleLogEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserConsoleErrorEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [text]
+          properties:
+            text:
+              type: string
+              description: Error message text. Present in both source paths.
+            stack_trace:
+              $ref: "#/components/schemas/BrowserCallStack"
+            level:
+              type: string
+              description: CDP console type value, always "error". Present only when sourced from Runtime.consoleAPICalled.
+            args:
+              type: array
+              description: All console arguments coerced to strings. Present only when sourced from Runtime.consoleAPICalled.
+              items:
+                type: string
+            line:
+              type: integer
+              description: Line number in the script where the exception was thrown. Present only when sourced from Runtime.exceptionThrown.
+            column:
+              type: integer
+              description: Column number in the script where the exception was thrown. Present only when sourced from Runtime.exceptionThrown.
+            source_url:
+              type: string
+              description: URL of the script file that threw the exception. Present only when sourced from Runtime.exceptionThrown.
+    BrowserConsoleErrorEvent:
+      type: object
+      description: >
+        A browser console error or uncaught JavaScript exception event. Emitted
+        from two distinct CDP sources with different data shapes.
+        Runtime.consoleAPICalled (console.error calls) produces level, text,
+        args, and stack_trace. Runtime.exceptionThrown (uncaught exceptions)
+        produces text, line, column, source_url, and stack_trace. Fields not
+        applicable to the source are absent.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: console_error
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserConsoleErrorEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserNetworkRequestEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [request_id, method, document_url, headers, initiator_type]
+          properties:
+            request_id:
+              type: string
+              description: CDP request identifier, unique within the session.
+            method:
+              type: string
+              description: HTTP method as sent on the wire (e.g. GET, POST).
+            document_url:
+              type: string
+              description: URL of the document that initiated the request.
+            headers:
+              $ref: "#/components/schemas/BrowserHttpHeaders"
+              description: Request headers.
+            resource_type:
+              type: string
+              description: CDP Network.ResourceType for the request, passed through as-is from Chrome. Known values include Document, Fetch, XHR, Script, Stylesheet, Image, Media, Font, TextTrack, EventSource, WebSocket, Manifest, Prefetch, Other, and more.
+            initiator_type:
+              type: string
+              description: CDP Initiator.type indicating what caused the request, passed through as-is from Chrome. Known values include script, parser, preload, and other.
+            post_data:
+              type: string
+              description: Request body for POST/PUT requests, if available.
+            is_redirect:
+              type: boolean
+              description: True if this request is the result of a redirect.
+            redirect_url:
+              type: string
+              description: Original URL before the redirect, present when is_redirect is true.
+    BrowserNetworkRequestEvent:
+      type: object
+      description: A browser network request sent event.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: network_request
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserNetworkRequestEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserNetworkResponseEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [request_id, method, status, headers]
+          properties:
+            request_id:
+              type: string
+              description: CDP request identifier matching the originating network_request event.
+            method:
+              type: string
+              description: HTTP method of the original request.
+            status:
+              type: integer
+              description: HTTP response status code.
+            status_text:
+              type: string
+              description: HTTP response status text (e.g. OK, Not Found).
+            headers:
+              $ref: "#/components/schemas/BrowserHttpHeaders"
+              description: Response headers.
+            mime_type:
+              type: string
+              description: MIME type of the response (e.g. text/html, application/json).
+            resource_type:
+              type: string
+              description: CDP Network.ResourceType for the request, passed through as-is from Chrome. Known values include Document, Fetch, XHR, Script, Stylesheet, Image, Media, Font, TextTrack, EventSource, WebSocket, Manifest, Prefetch, Other, and more.
+            body:
+              type: string
+              description: Truncated response body, present only for text MIME types.
+    BrowserNetworkResponseEvent:
+      type: object
+      description: A browser network response received event. Fired after the response body is fully received, not when headers arrive.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: network_response
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserNetworkResponseEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserNetworkLoadingFailedEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [request_id, error_text, canceled]
+          properties:
+            request_id:
+              type: string
+              description: CDP request identifier matching the originating network_request event.
+            error_text:
+              type: string
+              description: Network error description (e.g. net::ERR_CONNECTION_REFUSED).
+            canceled:
+              type: boolean
+              description: True if the request was canceled by the browser or page script.
+            resource_type:
+              type: string
+              description: CDP Network.ResourceType for the request, passed through as-is from Chrome. Known values include Document, Fetch, XHR, Script, Stylesheet, Image, Media, Font, TextTrack, EventSource, WebSocket, Manifest, Prefetch, Other, and more.
+    BrowserNetworkLoadingFailedEvent:
+      type: object
+      description: >
+        A browser network loading failed event. If the request was already in
+        flight when CDP attached (no prior `network_request` was emitted for
+        it), `url`, `frame_id`, `loader_id`, and `resource_type` are absent;
+        `BrowserEventContext` is partially populated in that case.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: network_loading_failed
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserNetworkLoadingFailedEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserNetworkIdleEvent:
+      type: object
+      description: A browser network idle event emitted after a 500ms quiet period with no in-flight HTTP requests.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: network_idle
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserEventContext"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserPageNavigationEventData:
+      type: object
+      additionalProperties: false
+      required: [session_id, target_id, target_type, url, frame_id, loader_id]
+      properties:
+        url:
+          type: string
+          description: URL navigated to.
+        frame_id:
+          type: string
+          description: CDP frame identifier of the navigated frame.
+        parent_frame_id:
+          type: string
+          description: Parent frame identifier for subframe navigations; absent for top-level navigations.
+        loader_id:
+          type: string
+          description: New CDP document loader identifier assigned for this navigation.
+        session_id:
+          type: string
+          description: CDP session identifier.
+        target_id:
+          type: string
+          description: Browser target identifier.
+        target_type:
+          $ref: "#/components/schemas/BrowserTargetType"
+    BrowserPageNavigationEvent:
+      type: object
+      description: A browser page navigation started event (CDP Page.frameNavigated). Carries nav context fields inline but not nav_seq, as this event resets the navigation epoch.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: page_navigation
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserPageNavigationEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserPageDomContentLoadedEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [cdp_timestamp]
+          properties:
+            cdp_timestamp:
+              type: number
+              description: Chrome monotonic clock value in seconds at which DOMContentLoaded fired, relative to browser process start (not Unix epoch). Use `ts` for wall-clock time.
+    BrowserPageDomContentLoadedEvent:
+      type: object
+      description: A browser DOMContentLoaded event (CDP Page.domContentEventFired).
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: page_dom_content_loaded
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserPageDomContentLoadedEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserPageLoadEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [cdp_timestamp]
+          properties:
+            cdp_timestamp:
+              type: number
+              description: Chrome monotonic clock value in seconds at which the load event fired, relative to browser process start (not Unix epoch). Use `ts` for wall-clock time.
+    BrowserPageLoadEvent:
+      type: object
+      description: A browser page load event (CDP Page.loadEventFired).
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: page_load
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserPageLoadEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserPageTabOpenedEventData:
+      type: object
+      additionalProperties: false
+      required: [target_id, target_type, url]
+      properties:
+        target_id:
+          type: string
+          description: CDP target identifier for the newly opened tab.
+        target_type:
+          $ref: "#/components/schemas/BrowserTargetType"
+        url:
+          type: string
+          description: Initial URL of the new tab.
+        title:
+          type: string
+          description: Initial page title of the new tab.
+        opener_id:
+          type: string
+          description: Target identifier of the tab that opened this one, if any.
+    BrowserPageTabOpenedEvent:
+      type: object
+      description: >
+        A new browser tab or target was opened (CDP Target.attachedToTarget
+        for page targets). Fires before a CDP session is attached to the new
+        target, so `session_id`, `frame_id`, `loader_id`, and `nav_seq` are
+        absent; this event does not compose `BrowserEventContext`. Consumers
+        reading context fields generically should treat it as a special case.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: page_tab_opened
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserPageTabOpenedEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserPageLayoutShiftEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [source_frame_id, time, duration]
+          properties:
+            source_frame_id:
+              type: string
+              description: CDP frame identifier of the frame where the layout shift occurred.
+            time:
+              type: number
+              description: Performance Timeline timestamp of the layout shift in milliseconds.
+            duration:
+              type: number
+              description: Duration of the layout shift entry in milliseconds (always 0 for layout shifts per spec).
+            layout_shift_details:
+              type: object
+              additionalProperties: false
+              description: PerformanceLayoutShift attributes from the Performance Timeline entry.
+              properties:
+                value:
+                  type: number
+                  description: Layout shift score for this entry (contribution to CLS).
+                had_recent_input:
+                  type: boolean
+                  description: True if the layout shift was preceded by user input within 500ms, excluding it from CLS.
+    BrowserPageLayoutShiftEvent:
+      type: object
+      description: A browser cumulative layout shift (CLS) event from the Performance Timeline API.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: page_layout_shift
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserPageLayoutShiftEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserPageLcpEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [source_frame_id, time]
+          properties:
+            source_frame_id:
+              type: string
+              description: CDP frame identifier of the frame where the LCP element was rendered.
+            time:
+              type: number
+              description: Performance Timeline timestamp of the LCP entry in milliseconds.
+            lcp_details:
+              type: object
+              additionalProperties: false
+              description: LargestContentfulPaint attributes from the Performance Timeline entry.
+              properties:
+                render_time:
+                  type: number
+                  description: Render time of the LCP element in milliseconds; 0 for cross-origin images without Timing-Allow-Origin.
+                load_time:
+                  type: number
+                  description: Load time of the LCP element in milliseconds.
+                size:
+                  type: number
+                  description: Visible area of the LCP element in pixels squared.
+                element_id:
+                  type: string
+                  description: id attribute of the LCP element, if present.
+                url:
+                  type: string
+                  description: URL of the LCP element for image or video elements.
+                node_id:
+                  type: integer
+                  description: CDP DOM node identifier of the LCP element.
+    BrowserPageLcpEvent:
+      type: object
+      description: A browser Largest Contentful Paint (LCP) event from the Performance Timeline API.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: page_lcp
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserPageLcpEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserPageLayoutSettledEvent:
+      type: object
+      description: A browser layout settled event emitted 1 second after page load with no intervening layout shifts, indicating visual stability. Each layout shift resets the 1-second timer.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: page_layout_settled
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserEventContext"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserPageNavigationSettledEvent:
+      type: object
+      description: >
+        Emitted when page_dom_content_loaded and page_layout_settled have both
+        fired for the same navigation, indicating the page is loaded and
+        visually stable. Independent of network_idle; a single pending request
+        does not block it.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: page_navigation_settled
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserEventContext"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserInteractionClickEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [x, y, selector, tag]
+          properties:
+            x:
+              type: integer
+              description: Viewport x-coordinate of the click in CSS pixels.
+            y:
+              type: integer
+              description: Viewport y-coordinate of the click in CSS pixels.
+            selector:
+              type: string
+              description: CSS selector path to the clicked element.
+            tag:
+              type: string
+              description: HTML tag name of the clicked element in uppercase (e.g. BUTTON, A, DIV).
+            text:
+              type: string
+              description: Visible text content of the clicked element, trimmed.
+    BrowserInteractionClickEvent:
+      type: object
+      description: A browser user click event captured via injected page script.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: interaction_click
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserInteractionClickEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserInteractionKeyEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [key, selector, tag]
+          properties:
+            key:
+              type: string
+              description: Key value from the KeyboardEvent (e.g. Enter, Backspace, a).
+            selector:
+              type: string
+              description: CSS selector path to the element that had focus when the key was pressed.
+            tag:
+              type: string
+              description: HTML tag name of the focused element in uppercase (e.g. INPUT, TEXTAREA, DIV).
+    BrowserInteractionKeyEvent:
+      type: object
+      description: A browser keyboard event captured via injected page script.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: interaction_key
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserInteractionKeyEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserInteractionScrollSettledEventData:
+      allOf:
+        - $ref: "#/components/schemas/BrowserEventContext"
+        - type: object
+          required: [from_x, from_y, to_x, to_y, target_selector]
+          properties:
+            from_x:
+              type: integer
+              description: Scroll x-position at the start of the scroll gesture in CSS pixels.
+            from_y:
+              type: integer
+              description: Scroll y-position at the start of the scroll gesture in CSS pixels.
+            to_x:
+              type: integer
+              description: Final scroll x-position after the gesture settled in CSS pixels.
+            to_y:
+              type: integer
+              description: Final scroll y-position after the gesture settled in CSS pixels.
+            target_selector:
+              type: string
+              description: CSS selector path to the scrolled element.
+    BrowserInteractionScrollSettledEvent:
+      type: object
+      description: A browser scroll settled event emitted after scroll position stops changing, captured via injected page script.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: interaction_scroll_settled
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserInteractionScrollSettledEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserMonitorScreenshotEventData:
+      type: object
+      additionalProperties: false
+      required: [png]
+      properties:
+        png:
+          type: string
+          contentEncoding: base64
+          description: Base64-encoded PNG screenshot of the browser viewport.
+    BrowserMonitorScreenshotEvent:
+      type: object
+      description: A periodic screenshot of the browser viewport.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: monitor_screenshot
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserMonitorScreenshotEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserMonitorDisconnectedEventData:
+      type: object
+      additionalProperties: false
+      required: [reason]
+      properties:
+        reason:
+          type: string
+          description: 'Reason for the disconnection. chrome_restarted: Chrome process restarted.'
+          enum: [chrome_restarted]
+    BrowserMonitorDisconnectedEvent:
+      type: object
+      description: The CDP connection to Chrome was lost. Telemetry events may be dropped until monitor_reconnected arrives. Treat any in-progress computed state (network_idle, page_layout_settled) as unreliable until then.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: monitor_disconnected
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserMonitorDisconnectedEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserMonitorReconnectedEventData:
+      type: object
+      additionalProperties: false
+      required: [reconnect_duration_ms]
+      properties:
+        reconnect_duration_ms:
+          type: integer
+          format: int64
+          description: Wall-clock time in milliseconds taken to reconnect after the disconnection.
+    BrowserMonitorReconnectedEvent:
+      type: object
+      description: The CDP connection to Chrome was successfully re-established after a disconnection. Events emitted during the gap are lost. Computed state is reset, so navigation and network tracking restart fresh from this point.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: monitor_reconnected
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserMonitorReconnectedEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserMonitorReconnectFailedEventData:
+      type: object
+      additionalProperties: false
+      required: [reason]
+      properties:
+        reason:
+          type: string
+          description: 'Reason for the reconnection failure. reconnect_exhausted: all retry attempts were used up without successfully restoring the CDP connection.'
+          enum: [reconnect_exhausted]
+    BrowserMonitorReconnectFailedEvent:
+      type: object
+      description: The CDP connection to Chrome could not be re-established after exhausting all reconnection attempts. No further telemetry events will arrive on this session.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: monitor_reconnect_failed
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserMonitorReconnectFailedEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    BrowserMonitorInitFailedEventData:
+      type: object
+      additionalProperties: false
+      required: [step]
+      properties:
+        step:
+          type: string
+          description: The CDP method or initialization step that failed (e.g. Target.setAutoAttach).
+    BrowserMonitorInitFailedEvent:
+      type: object
+      description: The CDP session could not be initialized.
+      required: [ts, type, source]
+      properties:
+        ts:
+          type: integer
+          format: int64
+          description: Event timestamp in Unix microseconds.
+        type:
+          type: string
+          const: monitor_init_failed
+        source:
+          $ref: "#/components/schemas/BrowserEventSource"
+        data:
+          $ref: "#/components/schemas/BrowserMonitorInitFailedEventData"
+        truncated:
+          type: boolean
+          description: True if the data field was truncated due to size limits.
+    KnownBrowserTelemetryEvent:
+      description: >
+        Discriminated union of browser telemetry events emitted by the Kernel
+        image. This is a structural taxonomy: any event on the telemetry stream
+        whose `data` conforms to one of the variants below (selected by `type`)
+        is a `KnownBrowserTelemetryEvent`, regardless of who published it.
+        Caller-published events via POST /telemetry/events are not constrained
+        to this union; see `TelemetryEvent` for the wire shape. Validation of
+        caller payloads against this taxonomy is the consumer's responsibility.
+      oneOf:
+        - $ref: "#/components/schemas/BrowserConsoleLogEvent"
+        - $ref: "#/components/schemas/BrowserConsoleErrorEvent"
+        - $ref: "#/components/schemas/BrowserNetworkRequestEvent"
+        - $ref: "#/components/schemas/BrowserNetworkResponseEvent"
+        - $ref: "#/components/schemas/BrowserNetworkLoadingFailedEvent"
+        - $ref: "#/components/schemas/BrowserNetworkIdleEvent"
+        - $ref: "#/components/schemas/BrowserPageNavigationEvent"
+        - $ref: "#/components/schemas/BrowserPageDomContentLoadedEvent"
+        - $ref: "#/components/schemas/BrowserPageLoadEvent"
+        - $ref: "#/components/schemas/BrowserPageTabOpenedEvent"
+        - $ref: "#/components/schemas/BrowserPageLayoutShiftEvent"
+        - $ref: "#/components/schemas/BrowserPageLcpEvent"
+        - $ref: "#/components/schemas/BrowserPageLayoutSettledEvent"
+        - $ref: "#/components/schemas/BrowserPageNavigationSettledEvent"
+        - $ref: "#/components/schemas/BrowserInteractionClickEvent"
+        - $ref: "#/components/schemas/BrowserInteractionKeyEvent"
+        - $ref: "#/components/schemas/BrowserInteractionScrollSettledEvent"
+        - $ref: "#/components/schemas/BrowserMonitorScreenshotEvent"
+        - $ref: "#/components/schemas/BrowserMonitorDisconnectedEvent"
+        - $ref: "#/components/schemas/BrowserMonitorReconnectedEvent"
+        - $ref: "#/components/schemas/BrowserMonitorReconnectFailedEvent"
+        - $ref: "#/components/schemas/BrowserMonitorInitFailedEvent"
+      discriminator:
+        propertyName: type
+        mapping:
+          console_log: "#/components/schemas/BrowserConsoleLogEvent"
+          console_error: "#/components/schemas/BrowserConsoleErrorEvent"
+          network_request: "#/components/schemas/BrowserNetworkRequestEvent"
+          network_response: "#/components/schemas/BrowserNetworkResponseEvent"
+          network_loading_failed: "#/components/schemas/BrowserNetworkLoadingFailedEvent"
+          network_idle: "#/components/schemas/BrowserNetworkIdleEvent"
+          page_navigation: "#/components/schemas/BrowserPageNavigationEvent"
+          page_dom_content_loaded: "#/components/schemas/BrowserPageDomContentLoadedEvent"
+          page_load: "#/components/schemas/BrowserPageLoadEvent"
+          page_tab_opened: "#/components/schemas/BrowserPageTabOpenedEvent"
+          page_layout_shift: "#/components/schemas/BrowserPageLayoutShiftEvent"
+          page_lcp: "#/components/schemas/BrowserPageLcpEvent"
+          page_layout_settled: "#/components/schemas/BrowserPageLayoutSettledEvent"
+          page_navigation_settled: "#/components/schemas/BrowserPageNavigationSettledEvent"
+          interaction_click: "#/components/schemas/BrowserInteractionClickEvent"
+          interaction_key: "#/components/schemas/BrowserInteractionKeyEvent"
+          interaction_scroll_settled: "#/components/schemas/BrowserInteractionScrollSettledEvent"
+          monitor_screenshot: "#/components/schemas/BrowserMonitorScreenshotEvent"
+          monitor_disconnected: "#/components/schemas/BrowserMonitorDisconnectedEvent"
+          monitor_reconnected: "#/components/schemas/BrowserMonitorReconnectedEvent"
+          monitor_reconnect_failed: "#/components/schemas/BrowserMonitorReconnectFailedEvent"
+          monitor_init_failed: "#/components/schemas/BrowserMonitorInitFailedEvent"
+    TelemetryState:
+      type: object
+      description: Current telemetry configuration.
       required:
-        - id
-        - status
         - config
         - seq
-        - created_at
       properties:
-        id:
-          type: string
-        status:
-          type: string
-          enum:
-            - running
-            - stopped
         config:
-          $ref: "#/components/schemas/CaptureConfig"
+          $ref: "#/components/schemas/BrowserTelemetryConfig"
         seq:
           type: integer
           format: int64
           description: >-
             Process-monotonic sequence number of the last published event.
-            Does not reset between sessions.
+            Does not reset across configuration changes.
           minimum: 0
-        created_at:
+        applied_at:
           type: string
           format: date-time
-      additionalProperties: false
-    StartCaptureSessionRequest:
-      type: object
-      description: >
-        Optional capture configuration. All fields default to the
-        server-defined profile when omitted or when no body is sent.
-      properties:
-        config:
-          $ref: "#/components/schemas/CaptureConfig"
-      additionalProperties: false
-    UpdateCaptureSessionRequest:
-      type: object
-      description: Fields to update on the capture session.
-      properties:
-        config:
-          $ref: "#/components/schemas/CaptureConfig"
+          description: >-
+            Wall-clock time at which the current configuration was applied.
+            Omitted when telemetry is not configured.
       additionalProperties: false
     StartRecordingRequest:
       type: object

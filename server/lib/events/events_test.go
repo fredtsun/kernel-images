@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	oapi "github.com/kernel/kernel-images/server/lib/oapi"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -24,16 +25,19 @@ func TestEventSerialization(t *testing.T) {
 	ev := Event{
 		Ts:       1234567890000,
 		Type:     "console.log",
-		Category: CategoryConsole,
-		Source: Source{
-			Kind:  KindCDP,
-			Event: "Runtime.consoleAPICalled",
-			Metadata: map[string]string{
-				"target_id":       "target-1",
-				"cdp_session_id":  "cdp-session-1",
-				"frame_id":        "frame-1",
-				"parent_frame_id": "parent-frame-1",
-			},
+		Category: Console,
+		Source: oapi.BrowserEventSource{
+			Kind:  oapi.Cdp,
+			Event: func() *string { s := "Runtime.consoleAPICalled"; return &s }(),
+			Metadata: func() *map[string]string {
+				m := map[string]string{
+					"target_id":       "target-1",
+					"cdp_session_id":  "cdp-session-1",
+					"frame_id":        "frame-1",
+					"parent_frame_id": "parent-frame-1",
+				}
+				return &m
+			}(),
 		},
 		Data: json.RawMessage(`{"message":"hello"}`),
 	}
@@ -63,8 +67,8 @@ func TestEnvelopeSerialization(t *testing.T) {
 		Event: Event{
 			Ts:       1000,
 			Type:     "console.log",
-			Category: CategoryConsole,
-			Source:   Source{Kind: KindCDP},
+			Category: Console,
+			Source:   oapi.BrowserEventSource{Kind: oapi.Cdp},
 		},
 	}
 
@@ -75,7 +79,7 @@ func TestEnvelopeSerialization(t *testing.T) {
 	require.NoError(t, json.Unmarshal(b, &decoded))
 
 	assert.Equal(t, float64(1), decoded["seq"])
-	assert.NotContains(t, decoded, "capture_session_id")
+	assert.NotContains(t, decoded, "telemetry_session_id")
 	inner, ok := decoded["event"].(map[string]any)
 	require.True(t, ok)
 	assert.Equal(t, "console.log", inner["type"])
@@ -86,8 +90,8 @@ func TestEventData(t *testing.T) {
 	ev := Event{
 		Ts:       1000,
 		Type:     "page.navigation",
-		Category: CategoryPage,
-		Source:   Source{Kind: KindCDP},
+		Category: Page,
+		Source:   oapi.BrowserEventSource{Kind: oapi.Cdp},
 		Data:     rawData,
 	}
 
@@ -103,8 +107,8 @@ func TestEventOmitEmpty(t *testing.T) {
 	ev := Event{
 		Ts:       1000,
 		Type:     "console.log",
-		Category: CategoryConsole,
-		Source:   Source{Kind: KindCDP},
+		Category: Console,
+		Source:   oapi.BrowserEventSource{Kind: oapi.Cdp},
 	}
 
 	b, err := json.Marshal(ev)
@@ -118,8 +122,8 @@ func mkEnv(seq uint64, ev Event) Envelope {
 	return Envelope{Seq: seq, Event: ev}
 }
 
-func cdpEvent(typ string, cat EventCategory) Event {
-	return Event{Type: typ, Category: cat, Source: Source{Kind: KindCDP}}
+func cdpEvent(typ string, cat oapi.TelemetryEventCategory) Event {
+	return Event{Type: typ, Category: cat, Source: oapi.BrowserEventSource{Kind: oapi.Cdp}}
 }
 
 func newTestRingBuffer(t *testing.T, capacity int) *ringBuffer {
@@ -135,9 +139,9 @@ func TestRingBuffer(t *testing.T) {
 	reader := rb.newReader(0)
 
 	envelopes := []Envelope{
-		mkEnv(1, cdpEvent("console.log", CategoryConsole)),
-		mkEnv(2, cdpEvent("network.request", CategoryNetwork)),
-		mkEnv(3, cdpEvent("page.navigation", CategoryPage)),
+		mkEnv(1, cdpEvent("console.log", Console)),
+		mkEnv(2, cdpEvent("network.request", Network)),
+		mkEnv(3, cdpEvent("page.navigation", Page)),
 	}
 
 	for _, env := range envelopes {
@@ -160,9 +164,9 @@ func TestRingBufferOverflowNoBlock(t *testing.T) {
 
 	done := make(chan struct{})
 	go func() {
-		rb.publish(mkEnv(1, cdpEvent("console.log", CategoryConsole)))
-		rb.publish(mkEnv(2, cdpEvent("console.log", CategoryConsole)))
-		rb.publish(mkEnv(3, cdpEvent("console.log", CategoryConsole)))
+		rb.publish(mkEnv(1, cdpEvent("console.log", Console)))
+		rb.publish(mkEnv(2, cdpEvent("console.log", Console)))
+		rb.publish(mkEnv(3, cdpEvent("console.log", Console)))
 		close(done)
 	}()
 
@@ -186,9 +190,9 @@ func TestRingBufferOverflowExistingReader(t *testing.T) {
 	rb := newTestRingBuffer(t,2)
 	reader := rb.newReader(0)
 
-	rb.publish(mkEnv(1, cdpEvent("console.log", CategoryConsole)))
-	rb.publish(mkEnv(2, cdpEvent("console.log", CategoryConsole)))
-	rb.publish(mkEnv(3, cdpEvent("console.log", CategoryConsole)))
+	rb.publish(mkEnv(1, cdpEvent("console.log", Console)))
+	rb.publish(mkEnv(2, cdpEvent("console.log", Console)))
+	rb.publish(mkEnv(3, cdpEvent("console.log", Console)))
 
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
@@ -210,7 +214,7 @@ func TestRingBufferOverflowExistingReader(t *testing.T) {
 func TestNewReaderResume(t *testing.T) {
 	rb := newTestRingBuffer(t,10)
 	for i := uint64(1); i <= 5; i++ {
-		rb.publish(mkEnv(i, cdpEvent("console.log", CategoryConsole)))
+		rb.publish(mkEnv(i, cdpEvent("console.log", Console)))
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
@@ -234,7 +238,7 @@ func TestNewReaderResume(t *testing.T) {
 	t.Run("resume_before_oldest_triggers_drop", func(t *testing.T) {
 		small := newTestRingBuffer(t, 3)
 		for i := uint64(1); i <= 5; i++ {
-			small.publish(mkEnv(i, cdpEvent("console.log", CategoryConsole)))
+			small.publish(mkEnv(i, cdpEvent("console.log", Console)))
 		}
 		// oldest in ring is seq 3, requesting resume after seq 1
 		reader := small.newReader(1)
@@ -274,7 +278,7 @@ func TestConcurrentPublishRead(t *testing.T) {
 	go func() {
 		defer wg.Done()
 		for i := 1; i <= numEvents; i++ {
-			rb.publish(mkEnv(uint64(i), cdpEvent("console.log", CategoryConsole)))
+			rb.publish(mkEnv(uint64(i), cdpEvent("console.log", Console)))
 		}
 	}()
 
@@ -293,7 +297,7 @@ func TestConcurrentReaders(t *testing.T) {
 	}
 
 	for i := 0; i < numEvents; i++ {
-		rb.publish(mkEnv(uint64(i+1), cdpEvent("console.log", CategoryConsole)))
+		rb.publish(mkEnv(uint64(i+1), cdpEvent("console.log", Console)))
 	}
 
 	var wg sync.WaitGroup
@@ -332,7 +336,7 @@ func TestRingBufferResetWithActiveReader(t *testing.T) {
 
 	// Publish some events so the reader advances.
 	for i := uint64(1); i <= 5; i++ {
-		rb.publish(mkEnv(i, cdpEvent("console.log", CategoryConsole)))
+		rb.publish(mkEnv(i, cdpEvent("console.log", Console)))
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
@@ -350,7 +354,7 @@ func TestRingBufferResetWithActiveReader(t *testing.T) {
 	assert.ErrorIs(t, err, context.DeadlineExceeded, "reader should block after reset")
 
 	// Publish new events; reader should resume from seq 1.
-	rb.publish(mkEnv(1, cdpEvent("page.navigation", CategoryPage)))
+	rb.publish(mkEnv(1, cdpEvent("page.navigation", Page)))
 	env := readEnvelope(t, reader, ctx)
 	assert.Equal(t, uint64(1), env.Seq)
 	assert.Equal(t, "page.navigation", env.Event.Type)

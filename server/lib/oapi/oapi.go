@@ -26,51 +26,411 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
-// Defines values for CaptureConfigCategories.
+// Defines values for BrowserConsoleErrorEventType.
 const (
-	CaptureConfigCategoriesCaptcha     CaptureConfigCategories = "captcha"
-	CaptureConfigCategoriesConsole     CaptureConfigCategories = "console"
-	CaptureConfigCategoriesInteraction CaptureConfigCategories = "interaction"
-	CaptureConfigCategoriesLiveview    CaptureConfigCategories = "liveview"
-	CaptureConfigCategoriesNetwork     CaptureConfigCategories = "network"
-	CaptureConfigCategoriesPage        CaptureConfigCategories = "page"
-	CaptureConfigCategoriesSystem      CaptureConfigCategories = "system"
+	ConsoleError BrowserConsoleErrorEventType = "console_error"
 )
 
-// Valid indicates whether the value is a known member of the CaptureConfigCategories enum.
-func (e CaptureConfigCategories) Valid() bool {
+// Valid indicates whether the value is a known member of the BrowserConsoleErrorEventType enum.
+func (e BrowserConsoleErrorEventType) Valid() bool {
 	switch e {
-	case CaptureConfigCategoriesCaptcha:
-		return true
-	case CaptureConfigCategoriesConsole:
-		return true
-	case CaptureConfigCategoriesInteraction:
-		return true
-	case CaptureConfigCategoriesLiveview:
-		return true
-	case CaptureConfigCategoriesNetwork:
-		return true
-	case CaptureConfigCategoriesPage:
-		return true
-	case CaptureConfigCategoriesSystem:
+	case ConsoleError:
 		return true
 	default:
 		return false
 	}
 }
 
-// Defines values for CaptureSessionStatus.
+// Defines values for BrowserConsoleLogEventType.
 const (
-	CaptureSessionStatusRunning CaptureSessionStatus = "running"
-	CaptureSessionStatusStopped CaptureSessionStatus = "stopped"
+	ConsoleLog BrowserConsoleLogEventType = "console_log"
 )
 
-// Valid indicates whether the value is a known member of the CaptureSessionStatus enum.
-func (e CaptureSessionStatus) Valid() bool {
+// Valid indicates whether the value is a known member of the BrowserConsoleLogEventType enum.
+func (e BrowserConsoleLogEventType) Valid() bool {
 	switch e {
-	case CaptureSessionStatusRunning:
+	case ConsoleLog:
 		return true
-	case CaptureSessionStatusStopped:
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserEventSourceKind.
+const (
+	Cdp          BrowserEventSourceKind = "cdp"
+	Extension    BrowserEventSourceKind = "extension"
+	KernelApi    BrowserEventSourceKind = "kernel_api"
+	LocalProcess BrowserEventSourceKind = "local_process"
+)
+
+// Valid indicates whether the value is a known member of the BrowserEventSourceKind enum.
+func (e BrowserEventSourceKind) Valid() bool {
+	switch e {
+	case Cdp:
+		return true
+	case Extension:
+		return true
+	case KernelApi:
+		return true
+	case LocalProcess:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserInteractionClickEventType.
+const (
+	InteractionClick BrowserInteractionClickEventType = "interaction_click"
+)
+
+// Valid indicates whether the value is a known member of the BrowserInteractionClickEventType enum.
+func (e BrowserInteractionClickEventType) Valid() bool {
+	switch e {
+	case InteractionClick:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserInteractionKeyEventType.
+const (
+	InteractionKey BrowserInteractionKeyEventType = "interaction_key"
+)
+
+// Valid indicates whether the value is a known member of the BrowserInteractionKeyEventType enum.
+func (e BrowserInteractionKeyEventType) Valid() bool {
+	switch e {
+	case InteractionKey:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserInteractionScrollSettledEventType.
+const (
+	InteractionScrollSettled BrowserInteractionScrollSettledEventType = "interaction_scroll_settled"
+)
+
+// Valid indicates whether the value is a known member of the BrowserInteractionScrollSettledEventType enum.
+func (e BrowserInteractionScrollSettledEventType) Valid() bool {
+	switch e {
+	case InteractionScrollSettled:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserMonitorDisconnectedEventType.
+const (
+	MonitorDisconnected BrowserMonitorDisconnectedEventType = "monitor_disconnected"
+)
+
+// Valid indicates whether the value is a known member of the BrowserMonitorDisconnectedEventType enum.
+func (e BrowserMonitorDisconnectedEventType) Valid() bool {
+	switch e {
+	case MonitorDisconnected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserMonitorDisconnectedEventDataReason.
+const (
+	ChromeRestarted BrowserMonitorDisconnectedEventDataReason = "chrome_restarted"
+)
+
+// Valid indicates whether the value is a known member of the BrowserMonitorDisconnectedEventDataReason enum.
+func (e BrowserMonitorDisconnectedEventDataReason) Valid() bool {
+	switch e {
+	case ChromeRestarted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserMonitorInitFailedEventType.
+const (
+	MonitorInitFailed BrowserMonitorInitFailedEventType = "monitor_init_failed"
+)
+
+// Valid indicates whether the value is a known member of the BrowserMonitorInitFailedEventType enum.
+func (e BrowserMonitorInitFailedEventType) Valid() bool {
+	switch e {
+	case MonitorInitFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserMonitorReconnectFailedEventType.
+const (
+	MonitorReconnectFailed BrowserMonitorReconnectFailedEventType = "monitor_reconnect_failed"
+)
+
+// Valid indicates whether the value is a known member of the BrowserMonitorReconnectFailedEventType enum.
+func (e BrowserMonitorReconnectFailedEventType) Valid() bool {
+	switch e {
+	case MonitorReconnectFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserMonitorReconnectFailedEventDataReason.
+const (
+	ReconnectExhausted BrowserMonitorReconnectFailedEventDataReason = "reconnect_exhausted"
+)
+
+// Valid indicates whether the value is a known member of the BrowserMonitorReconnectFailedEventDataReason enum.
+func (e BrowserMonitorReconnectFailedEventDataReason) Valid() bool {
+	switch e {
+	case ReconnectExhausted:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserMonitorReconnectedEventType.
+const (
+	MonitorReconnected BrowserMonitorReconnectedEventType = "monitor_reconnected"
+)
+
+// Valid indicates whether the value is a known member of the BrowserMonitorReconnectedEventType enum.
+func (e BrowserMonitorReconnectedEventType) Valid() bool {
+	switch e {
+	case MonitorReconnected:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserMonitorScreenshotEventType.
+const (
+	MonitorScreenshot BrowserMonitorScreenshotEventType = "monitor_screenshot"
+)
+
+// Valid indicates whether the value is a known member of the BrowserMonitorScreenshotEventType enum.
+func (e BrowserMonitorScreenshotEventType) Valid() bool {
+	switch e {
+	case MonitorScreenshot:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserNetworkIdleEventType.
+const (
+	NetworkIdle BrowserNetworkIdleEventType = "network_idle"
+)
+
+// Valid indicates whether the value is a known member of the BrowserNetworkIdleEventType enum.
+func (e BrowserNetworkIdleEventType) Valid() bool {
+	switch e {
+	case NetworkIdle:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserNetworkLoadingFailedEventType.
+const (
+	NetworkLoadingFailed BrowserNetworkLoadingFailedEventType = "network_loading_failed"
+)
+
+// Valid indicates whether the value is a known member of the BrowserNetworkLoadingFailedEventType enum.
+func (e BrowserNetworkLoadingFailedEventType) Valid() bool {
+	switch e {
+	case NetworkLoadingFailed:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserNetworkRequestEventType.
+const (
+	NetworkRequest BrowserNetworkRequestEventType = "network_request"
+)
+
+// Valid indicates whether the value is a known member of the BrowserNetworkRequestEventType enum.
+func (e BrowserNetworkRequestEventType) Valid() bool {
+	switch e {
+	case NetworkRequest:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserNetworkResponseEventType.
+const (
+	NetworkResponse BrowserNetworkResponseEventType = "network_response"
+)
+
+// Valid indicates whether the value is a known member of the BrowserNetworkResponseEventType enum.
+func (e BrowserNetworkResponseEventType) Valid() bool {
+	switch e {
+	case NetworkResponse:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserPageDomContentLoadedEventType.
+const (
+	PageDomContentLoaded BrowserPageDomContentLoadedEventType = "page_dom_content_loaded"
+)
+
+// Valid indicates whether the value is a known member of the BrowserPageDomContentLoadedEventType enum.
+func (e BrowserPageDomContentLoadedEventType) Valid() bool {
+	switch e {
+	case PageDomContentLoaded:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserPageLayoutSettledEventType.
+const (
+	PageLayoutSettled BrowserPageLayoutSettledEventType = "page_layout_settled"
+)
+
+// Valid indicates whether the value is a known member of the BrowserPageLayoutSettledEventType enum.
+func (e BrowserPageLayoutSettledEventType) Valid() bool {
+	switch e {
+	case PageLayoutSettled:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserPageLayoutShiftEventType.
+const (
+	PageLayoutShift BrowserPageLayoutShiftEventType = "page_layout_shift"
+)
+
+// Valid indicates whether the value is a known member of the BrowserPageLayoutShiftEventType enum.
+func (e BrowserPageLayoutShiftEventType) Valid() bool {
+	switch e {
+	case PageLayoutShift:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserPageLcpEventType.
+const (
+	PageLcp BrowserPageLcpEventType = "page_lcp"
+)
+
+// Valid indicates whether the value is a known member of the BrowserPageLcpEventType enum.
+func (e BrowserPageLcpEventType) Valid() bool {
+	switch e {
+	case PageLcp:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserPageLoadEventType.
+const (
+	PageLoad BrowserPageLoadEventType = "page_load"
+)
+
+// Valid indicates whether the value is a known member of the BrowserPageLoadEventType enum.
+func (e BrowserPageLoadEventType) Valid() bool {
+	switch e {
+	case PageLoad:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserPageNavigationEventType.
+const (
+	PageNavigation BrowserPageNavigationEventType = "page_navigation"
+)
+
+// Valid indicates whether the value is a known member of the BrowserPageNavigationEventType enum.
+func (e BrowserPageNavigationEventType) Valid() bool {
+	switch e {
+	case PageNavigation:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserPageNavigationSettledEventType.
+const (
+	PageNavigationSettled BrowserPageNavigationSettledEventType = "page_navigation_settled"
+)
+
+// Valid indicates whether the value is a known member of the BrowserPageNavigationSettledEventType enum.
+func (e BrowserPageNavigationSettledEventType) Valid() bool {
+	switch e {
+	case PageNavigationSettled:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserPageTabOpenedEventType.
+const (
+	PageTabOpened BrowserPageTabOpenedEventType = "page_tab_opened"
+)
+
+// Valid indicates whether the value is a known member of the BrowserPageTabOpenedEventType enum.
+func (e BrowserPageTabOpenedEventType) Valid() bool {
+	switch e {
+	case PageTabOpened:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserTargetType.
+const (
+	BrowserTargetTypeBackgroundPage BrowserTargetType = "background_page"
+	BrowserTargetTypeOther          BrowserTargetType = "other"
+	BrowserTargetTypePage           BrowserTargetType = "page"
+	BrowserTargetTypeServiceWorker  BrowserTargetType = "service_worker"
+	BrowserTargetTypeSharedWorker   BrowserTargetType = "shared_worker"
+)
+
+// Valid indicates whether the value is a known member of the BrowserTargetType enum.
+func (e BrowserTargetType) Valid() bool {
+	switch e {
+	case BrowserTargetTypeBackgroundPage:
+		return true
+	case BrowserTargetTypeOther:
+		return true
+	case BrowserTargetTypePage:
+		return true
+	case BrowserTargetTypeServiceWorker:
+		return true
+	case BrowserTargetTypeSharedWorker:
 		return true
 	default:
 		return false
@@ -182,63 +542,6 @@ func (e DragMouseRequestButton) Valid() bool {
 	}
 }
 
-// Defines values for EventCategory.
-const (
-	EventCategoryCaptcha     EventCategory = "captcha"
-	EventCategoryConsole     EventCategory = "console"
-	EventCategoryInteraction EventCategory = "interaction"
-	EventCategoryLiveview    EventCategory = "liveview"
-	EventCategoryNetwork     EventCategory = "network"
-	EventCategoryPage        EventCategory = "page"
-	EventCategorySystem      EventCategory = "system"
-)
-
-// Valid indicates whether the value is a known member of the EventCategory enum.
-func (e EventCategory) Valid() bool {
-	switch e {
-	case EventCategoryCaptcha:
-		return true
-	case EventCategoryConsole:
-		return true
-	case EventCategoryInteraction:
-		return true
-	case EventCategoryLiveview:
-		return true
-	case EventCategoryNetwork:
-		return true
-	case EventCategoryPage:
-		return true
-	case EventCategorySystem:
-		return true
-	default:
-		return false
-	}
-}
-
-// Defines values for EventSourceKind.
-const (
-	Cdp          EventSourceKind = "cdp"
-	Extension    EventSourceKind = "extension"
-	KernelApi    EventSourceKind = "kernel_api"
-	LocalProcess EventSourceKind = "local_process"
-)
-
-// Valid indicates whether the value is a known member of the EventSourceKind enum.
-func (e EventSourceKind) Valid() bool {
-	switch e {
-	case Cdp:
-		return true
-	case Extension:
-		return true
-	case KernelApi:
-		return true
-	case LocalProcess:
-		return true
-	default:
-		return false
-	}
-}
-
 // Defines values for FileSystemEventType.
 const (
 	CREATE FileSystemEventType = "CREATE"
@@ -313,16 +616,16 @@ func (e ProcessKillRequestSignal) Valid() bool {
 
 // Defines values for ProcessStatusState.
 const (
-	ProcessStatusStateExited  ProcessStatusState = "exited"
-	ProcessStatusStateRunning ProcessStatusState = "running"
+	Exited  ProcessStatusState = "exited"
+	Running ProcessStatusState = "running"
 )
 
 // Valid indicates whether the value is a known member of the ProcessStatusState enum.
 func (e ProcessStatusState) Valid() bool {
 	switch e {
-	case ProcessStatusStateExited:
+	case Exited:
 		return true
-	case ProcessStatusStateRunning:
+	case Running:
 		return true
 	default:
 		return false
@@ -364,25 +667,46 @@ func (e ProcessStreamEventStream) Valid() bool {
 
 // Defines values for PublishEventRequestCategory.
 const (
-	Captcha     PublishEventRequestCategory = "captcha"
-	Console     PublishEventRequestCategory = "console"
-	Interaction PublishEventRequestCategory = "interaction"
-	Liveview    PublishEventRequestCategory = "liveview"
-	Network     PublishEventRequestCategory = "network"
-	Page        PublishEventRequestCategory = "page"
-	System      PublishEventRequestCategory = "system"
+	PublishEventRequestCategoryConsole     PublishEventRequestCategory = "console"
+	PublishEventRequestCategoryInteraction PublishEventRequestCategory = "interaction"
+	PublishEventRequestCategoryNetwork     PublishEventRequestCategory = "network"
+	PublishEventRequestCategoryPage        PublishEventRequestCategory = "page"
+	PublishEventRequestCategorySystem      PublishEventRequestCategory = "system"
 )
 
 // Valid indicates whether the value is a known member of the PublishEventRequestCategory enum.
 func (e PublishEventRequestCategory) Valid() bool {
 	switch e {
-	case Captcha:
+	case PublishEventRequestCategoryConsole:
 		return true
+	case PublishEventRequestCategoryInteraction:
+		return true
+	case PublishEventRequestCategoryNetwork:
+		return true
+	case PublishEventRequestCategoryPage:
+		return true
+	case PublishEventRequestCategorySystem:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TelemetryEventCategory.
+const (
+	Console     TelemetryEventCategory = "console"
+	Interaction TelemetryEventCategory = "interaction"
+	Network     TelemetryEventCategory = "network"
+	Page        TelemetryEventCategory = "page"
+	System      TelemetryEventCategory = "system"
+)
+
+// Valid indicates whether the value is a known member of the TelemetryEventCategory enum.
+func (e TelemetryEventCategory) Valid() bool {
+	switch e {
 	case Console:
 		return true
 	case Interaction:
-		return true
-	case Liveview:
 		return true
 	case Network:
 		return true
@@ -443,29 +767,1055 @@ type BatchComputerActionRequest struct {
 	Actions []ComputerAction `json:"actions"`
 }
 
-// CaptureConfig Capture filtering preferences.
-type CaptureConfig struct {
-	// Categories Event categories to capture. When omitted or empty, all categories are captured.
-	Categories *[]CaptureConfigCategories `json:"categories,omitempty"`
+// BrowserCallStack CDP Runtime.StackTrace representing the JavaScript call stack at the time of an event. Fields use CDP naming conventions rather than snake_case to match the Chrome DevTools Protocol wire format.
+type BrowserCallStack struct {
+	// CallFrames Ordered list of call frames, outermost first.
+	CallFrames []struct {
+		// ColumnNumber Zero-based column number within the line.
+		ColumnNumber int `json:"columnNumber"`
+
+		// FunctionName JavaScript function name, or empty string for anonymous functions.
+		FunctionName string `json:"functionName"`
+
+		// LineNumber Zero-based line number within the script.
+		LineNumber int `json:"lineNumber"`
+
+		// ScriptId CDP script identifier.
+		ScriptId string `json:"scriptId"`
+
+		// Url URL or name of the script file.
+		Url string `json:"url"`
+	} `json:"callFrames"`
+
+	// Description Optional label for the stack trace (e.g. async cause).
+	Description *string `json:"description,omitempty"`
+
+	// Parent Parent stack trace for async stacks.
+	Parent *BrowserCallStack `json:"parent,omitempty"`
 }
 
-// CaptureConfigCategories defines model for CaptureConfig.Categories.
-type CaptureConfigCategories string
+// BrowserConsoleErrorEvent A browser console error or uncaught JavaScript exception event. Emitted from two distinct CDP sources with different data shapes. Runtime.consoleAPICalled (console.error calls) produces level, text, args, and stack_trace. Runtime.exceptionThrown (uncaught exceptions) produces text, line, column, source_url, and stack_trace. Fields not applicable to the source are absent.
+type BrowserConsoleErrorEvent struct {
+	Data *BrowserConsoleErrorEventData `json:"data,omitempty"`
 
-// CaptureSession A capture session resource.
-type CaptureSession struct {
-	// Config Capture filtering preferences.
-	Config    CaptureConfig `json:"config"`
-	CreatedAt time.Time     `json:"created_at"`
-	Id        string        `json:"id"`
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
 
-	// Seq Process-monotonic sequence number of the last published event. Does not reset between sessions.
-	Seq    int64                `json:"seq"`
-	Status CaptureSessionStatus `json:"status"`
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                        `json:"ts"`
+	Type BrowserConsoleErrorEventType `json:"type"`
 }
 
-// CaptureSessionStatus defines model for CaptureSession.Status.
-type CaptureSessionStatus string
+// BrowserConsoleErrorEventType defines model for BrowserConsoleErrorEvent.Type.
+type BrowserConsoleErrorEventType string
+
+// BrowserConsoleErrorEventData defines model for BrowserConsoleErrorEventData.
+type BrowserConsoleErrorEventData struct {
+	// Args All console arguments coerced to strings. Present only when sourced from Runtime.consoleAPICalled.
+	Args *[]string `json:"args,omitempty"`
+
+	// Column Column number in the script where the exception was thrown. Present only when sourced from Runtime.exceptionThrown.
+	Column *int `json:"column,omitempty"`
+
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// Level CDP console type value, always "error". Present only when sourced from Runtime.consoleAPICalled.
+	Level *string `json:"level,omitempty"`
+
+	// Line Line number in the script where the exception was thrown. Present only when sourced from Runtime.exceptionThrown.
+	Line *int `json:"line,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// SourceUrl URL of the script file that threw the exception. Present only when sourced from Runtime.exceptionThrown.
+	SourceUrl *string `json:"source_url,omitempty"`
+
+	// StackTrace CDP Runtime.StackTrace representing the JavaScript call stack at the time of an event. Fields use CDP naming conventions rather than snake_case to match the Chrome DevTools Protocol wire format.
+	StackTrace *BrowserCallStack `json:"stack_trace,omitempty"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Text Error message text. Present in both source paths.
+	Text string `json:"text"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserConsoleLogEvent A browser console log event (console.log, console.info, console.warn, etc.).
+type BrowserConsoleLogEvent struct {
+	Data *BrowserConsoleLogEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                      `json:"ts"`
+	Type BrowserConsoleLogEventType `json:"type"`
+}
+
+// BrowserConsoleLogEventType defines model for BrowserConsoleLogEvent.Type.
+type BrowserConsoleLogEventType string
+
+// BrowserConsoleLogEventData defines model for BrowserConsoleLogEventData.
+type BrowserConsoleLogEventData struct {
+	// Args All console arguments coerced to strings.
+	Args *[]string `json:"args,omitempty"`
+
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// Level CDP Runtime.consoleAPICalled type, passed through unfiltered from Chrome. `error` is routed to console_error events instead; all other CDP console types appear here. See CDP spec for the full enum.
+	Level string `json:"level"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// StackTrace CDP Runtime.StackTrace representing the JavaScript call stack at the time of an event. Fields use CDP naming conventions rather than snake_case to match the Chrome DevTools Protocol wire format.
+	StackTrace *BrowserCallStack `json:"stack_trace,omitempty"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Text First console argument coerced to string.
+	Text string `json:"text"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserEventContext Browser event context stamped by the browser monitor onto all CDP-sourced events. Identifies the target, frame, and navigation epoch in which the event occurred.
+type BrowserEventContext struct {
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserEventSource Provenance metadata identifying which producer emitted the event.
+type BrowserEventSource struct {
+	// Event Producer-specific event name (e.g. `Runtime.consoleAPICalled` for CDP-sourced console events).
+	Event *string `json:"event,omitempty"`
+
+	// Kind Event producer. `cdp`: Chrome DevTools Protocol events from the browser. `kernel_api`: Kernel API server (reserved for server-generated events). `extension`: injected Chrome extension. `local_process`: system process running alongside the browser.
+	Kind BrowserEventSourceKind `json:"kind"`
+
+	// Metadata Producer-specific context (e.g. CDP target/session/frame IDs).
+	Metadata *map[string]string `json:"metadata,omitempty"`
+}
+
+// BrowserEventSourceKind Event producer. `cdp`: Chrome DevTools Protocol events from the browser. `kernel_api`: Kernel API server (reserved for server-generated events). `extension`: injected Chrome extension. `local_process`: system process running alongside the browser.
+type BrowserEventSourceKind string
+
+// BrowserHttpHeaders HTTP headers map forwarded as-is from CDP without normalization. Values are typically strings but may be any JSON type.
+type BrowserHttpHeaders map[string]interface{}
+
+// BrowserInteractionClickEvent A browser user click event captured via injected page script.
+type BrowserInteractionClickEvent struct {
+	Data *BrowserInteractionClickEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                            `json:"ts"`
+	Type BrowserInteractionClickEventType `json:"type"`
+}
+
+// BrowserInteractionClickEventType defines model for BrowserInteractionClickEvent.Type.
+type BrowserInteractionClickEventType string
+
+// BrowserInteractionClickEventData defines model for BrowserInteractionClickEventData.
+type BrowserInteractionClickEventData struct {
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// Selector CSS selector path to the clicked element.
+	Selector string `json:"selector"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// Tag HTML tag name of the clicked element in uppercase (e.g. BUTTON, A, DIV).
+	Tag string `json:"tag"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Text Visible text content of the clicked element, trimmed.
+	Text *string `json:"text,omitempty"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+
+	// X Viewport x-coordinate of the click in CSS pixels.
+	X int `json:"x"`
+
+	// Y Viewport y-coordinate of the click in CSS pixels.
+	Y int `json:"y"`
+}
+
+// BrowserInteractionKeyEvent A browser keyboard event captured via injected page script.
+type BrowserInteractionKeyEvent struct {
+	Data *BrowserInteractionKeyEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                          `json:"ts"`
+	Type BrowserInteractionKeyEventType `json:"type"`
+}
+
+// BrowserInteractionKeyEventType defines model for BrowserInteractionKeyEvent.Type.
+type BrowserInteractionKeyEventType string
+
+// BrowserInteractionKeyEventData defines model for BrowserInteractionKeyEventData.
+type BrowserInteractionKeyEventData struct {
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// Key Key value from the KeyboardEvent (e.g. Enter, Backspace, a).
+	Key string `json:"key"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// Selector CSS selector path to the element that had focus when the key was pressed.
+	Selector string `json:"selector"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// Tag HTML tag name of the focused element in uppercase (e.g. INPUT, TEXTAREA, DIV).
+	Tag string `json:"tag"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserInteractionScrollSettledEvent A browser scroll settled event emitted after scroll position stops changing, captured via injected page script.
+type BrowserInteractionScrollSettledEvent struct {
+	Data *BrowserInteractionScrollSettledEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                                    `json:"ts"`
+	Type BrowserInteractionScrollSettledEventType `json:"type"`
+}
+
+// BrowserInteractionScrollSettledEventType defines model for BrowserInteractionScrollSettledEvent.Type.
+type BrowserInteractionScrollSettledEventType string
+
+// BrowserInteractionScrollSettledEventData defines model for BrowserInteractionScrollSettledEventData.
+type BrowserInteractionScrollSettledEventData struct {
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// FromX Scroll x-position at the start of the scroll gesture in CSS pixels.
+	FromX int `json:"from_x"`
+
+	// FromY Scroll y-position at the start of the scroll gesture in CSS pixels.
+	FromY int `json:"from_y"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetSelector CSS selector path to the scrolled element.
+	TargetSelector string `json:"target_selector"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// ToX Final scroll x-position after the gesture settled in CSS pixels.
+	ToX int `json:"to_x"`
+
+	// ToY Final scroll y-position after the gesture settled in CSS pixels.
+	ToY int `json:"to_y"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserMonitorDisconnectedEvent The CDP connection to Chrome was lost. Telemetry events may be dropped until monitor_reconnected arrives. Treat any in-progress computed state (network_idle, page_layout_settled) as unreliable until then.
+type BrowserMonitorDisconnectedEvent struct {
+	Data *BrowserMonitorDisconnectedEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                               `json:"ts"`
+	Type BrowserMonitorDisconnectedEventType `json:"type"`
+}
+
+// BrowserMonitorDisconnectedEventType defines model for BrowserMonitorDisconnectedEvent.Type.
+type BrowserMonitorDisconnectedEventType string
+
+// BrowserMonitorDisconnectedEventData defines model for BrowserMonitorDisconnectedEventData.
+type BrowserMonitorDisconnectedEventData struct {
+	// Reason Reason for the disconnection. chrome_restarted: Chrome process restarted.
+	Reason BrowserMonitorDisconnectedEventDataReason `json:"reason"`
+}
+
+// BrowserMonitorDisconnectedEventDataReason Reason for the disconnection. chrome_restarted: Chrome process restarted.
+type BrowserMonitorDisconnectedEventDataReason string
+
+// BrowserMonitorInitFailedEvent The CDP session could not be initialized.
+type BrowserMonitorInitFailedEvent struct {
+	Data *BrowserMonitorInitFailedEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                             `json:"ts"`
+	Type BrowserMonitorInitFailedEventType `json:"type"`
+}
+
+// BrowserMonitorInitFailedEventType defines model for BrowserMonitorInitFailedEvent.Type.
+type BrowserMonitorInitFailedEventType string
+
+// BrowserMonitorInitFailedEventData defines model for BrowserMonitorInitFailedEventData.
+type BrowserMonitorInitFailedEventData struct {
+	// Step The CDP method or initialization step that failed (e.g. Target.setAutoAttach).
+	Step string `json:"step"`
+}
+
+// BrowserMonitorReconnectFailedEvent The CDP connection to Chrome could not be re-established after exhausting all reconnection attempts. No further telemetry events will arrive on this session.
+type BrowserMonitorReconnectFailedEvent struct {
+	Data *BrowserMonitorReconnectFailedEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                                  `json:"ts"`
+	Type BrowserMonitorReconnectFailedEventType `json:"type"`
+}
+
+// BrowserMonitorReconnectFailedEventType defines model for BrowserMonitorReconnectFailedEvent.Type.
+type BrowserMonitorReconnectFailedEventType string
+
+// BrowserMonitorReconnectFailedEventData defines model for BrowserMonitorReconnectFailedEventData.
+type BrowserMonitorReconnectFailedEventData struct {
+	// Reason Reason for the reconnection failure. reconnect_exhausted: all retry attempts were used up without successfully restoring the CDP connection.
+	Reason BrowserMonitorReconnectFailedEventDataReason `json:"reason"`
+}
+
+// BrowserMonitorReconnectFailedEventDataReason Reason for the reconnection failure. reconnect_exhausted: all retry attempts were used up without successfully restoring the CDP connection.
+type BrowserMonitorReconnectFailedEventDataReason string
+
+// BrowserMonitorReconnectedEvent The CDP connection to Chrome was successfully re-established after a disconnection. Events emitted during the gap are lost. Computed state is reset, so navigation and network tracking restart fresh from this point.
+type BrowserMonitorReconnectedEvent struct {
+	Data *BrowserMonitorReconnectedEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                              `json:"ts"`
+	Type BrowserMonitorReconnectedEventType `json:"type"`
+}
+
+// BrowserMonitorReconnectedEventType defines model for BrowserMonitorReconnectedEvent.Type.
+type BrowserMonitorReconnectedEventType string
+
+// BrowserMonitorReconnectedEventData defines model for BrowserMonitorReconnectedEventData.
+type BrowserMonitorReconnectedEventData struct {
+	// ReconnectDurationMs Wall-clock time in milliseconds taken to reconnect after the disconnection.
+	ReconnectDurationMs int64 `json:"reconnect_duration_ms"`
+}
+
+// BrowserMonitorScreenshotEvent A periodic screenshot of the browser viewport.
+type BrowserMonitorScreenshotEvent struct {
+	Data *BrowserMonitorScreenshotEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                             `json:"ts"`
+	Type BrowserMonitorScreenshotEventType `json:"type"`
+}
+
+// BrowserMonitorScreenshotEventType defines model for BrowserMonitorScreenshotEvent.Type.
+type BrowserMonitorScreenshotEventType string
+
+// BrowserMonitorScreenshotEventData defines model for BrowserMonitorScreenshotEventData.
+type BrowserMonitorScreenshotEventData struct {
+	// Png Base64-encoded PNG screenshot of the browser viewport.
+	Png []byte `json:"png"`
+}
+
+// BrowserNetworkIdleEvent A browser network idle event emitted after a 500ms quiet period with no in-flight HTTP requests.
+type BrowserNetworkIdleEvent struct {
+	// Data Browser event context stamped by the browser monitor onto all CDP-sourced events. Identifies the target, frame, and navigation epoch in which the event occurred.
+	Data *BrowserEventContext `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                       `json:"ts"`
+	Type BrowserNetworkIdleEventType `json:"type"`
+}
+
+// BrowserNetworkIdleEventType defines model for BrowserNetworkIdleEvent.Type.
+type BrowserNetworkIdleEventType string
+
+// BrowserNetworkLoadingFailedEvent A browser network loading failed event. If the request was already in flight when CDP attached (no prior `network_request` was emitted for it), `url`, `frame_id`, `loader_id`, and `resource_type` are absent; `BrowserEventContext` is partially populated in that case.
+type BrowserNetworkLoadingFailedEvent struct {
+	Data *BrowserNetworkLoadingFailedEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                                `json:"ts"`
+	Type BrowserNetworkLoadingFailedEventType `json:"type"`
+}
+
+// BrowserNetworkLoadingFailedEventType defines model for BrowserNetworkLoadingFailedEvent.Type.
+type BrowserNetworkLoadingFailedEventType string
+
+// BrowserNetworkLoadingFailedEventData defines model for BrowserNetworkLoadingFailedEventData.
+type BrowserNetworkLoadingFailedEventData struct {
+	// Canceled True if the request was canceled by the browser or page script.
+	Canceled bool `json:"canceled"`
+
+	// ErrorText Network error description (e.g. net::ERR_CONNECTION_REFUSED).
+	ErrorText string `json:"error_text"`
+
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// RequestId CDP request identifier matching the originating network_request event.
+	RequestId string `json:"request_id"`
+
+	// ResourceType CDP Network.ResourceType for the request, passed through as-is from Chrome. Known values include Document, Fetch, XHR, Script, Stylesheet, Image, Media, Font, TextTrack, EventSource, WebSocket, Manifest, Prefetch, Other, and more.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserNetworkRequestEvent A browser network request sent event.
+type BrowserNetworkRequestEvent struct {
+	Data *BrowserNetworkRequestEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                          `json:"ts"`
+	Type BrowserNetworkRequestEventType `json:"type"`
+}
+
+// BrowserNetworkRequestEventType defines model for BrowserNetworkRequestEvent.Type.
+type BrowserNetworkRequestEventType string
+
+// BrowserNetworkRequestEventData defines model for BrowserNetworkRequestEventData.
+type BrowserNetworkRequestEventData struct {
+	// DocumentUrl URL of the document that initiated the request.
+	DocumentUrl string `json:"document_url"`
+
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// Headers Request headers.
+	Headers BrowserHttpHeaders `json:"headers"`
+
+	// InitiatorType CDP Initiator.type indicating what caused the request, passed through as-is from Chrome. Known values include script, parser, preload, and other.
+	InitiatorType string `json:"initiator_type"`
+
+	// IsRedirect True if this request is the result of a redirect.
+	IsRedirect *bool `json:"is_redirect,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// Method HTTP method as sent on the wire (e.g. GET, POST).
+	Method string `json:"method"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// PostData Request body for POST/PUT requests, if available.
+	PostData *string `json:"post_data,omitempty"`
+
+	// RedirectUrl Original URL before the redirect, present when is_redirect is true.
+	RedirectUrl *string `json:"redirect_url,omitempty"`
+
+	// RequestId CDP request identifier, unique within the session.
+	RequestId string `json:"request_id"`
+
+	// ResourceType CDP Network.ResourceType for the request, passed through as-is from Chrome. Known values include Document, Fetch, XHR, Script, Stylesheet, Image, Media, Font, TextTrack, EventSource, WebSocket, Manifest, Prefetch, Other, and more.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserNetworkResponseEvent A browser network response received event. Fired after the response body is fully received, not when headers arrive.
+type BrowserNetworkResponseEvent struct {
+	Data *BrowserNetworkResponseEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                           `json:"ts"`
+	Type BrowserNetworkResponseEventType `json:"type"`
+}
+
+// BrowserNetworkResponseEventType defines model for BrowserNetworkResponseEvent.Type.
+type BrowserNetworkResponseEventType string
+
+// BrowserNetworkResponseEventData defines model for BrowserNetworkResponseEventData.
+type BrowserNetworkResponseEventData struct {
+	// Body Truncated response body, present only for text MIME types.
+	Body *string `json:"body,omitempty"`
+
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// Headers Response headers.
+	Headers BrowserHttpHeaders `json:"headers"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// Method HTTP method of the original request.
+	Method string `json:"method"`
+
+	// MimeType MIME type of the response (e.g. text/html, application/json).
+	MimeType *string `json:"mime_type,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// RequestId CDP request identifier matching the originating network_request event.
+	RequestId string `json:"request_id"`
+
+	// ResourceType CDP Network.ResourceType for the request, passed through as-is from Chrome. Known values include Document, Fetch, XHR, Script, Stylesheet, Image, Media, Font, TextTrack, EventSource, WebSocket, Manifest, Prefetch, Other, and more.
+	ResourceType *string `json:"resource_type,omitempty"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// Status HTTP response status code.
+	Status int `json:"status"`
+
+	// StatusText HTTP response status text (e.g. OK, Not Found).
+	StatusText *string `json:"status_text,omitempty"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserPageDomContentLoadedEvent A browser DOMContentLoaded event (CDP Page.domContentEventFired).
+type BrowserPageDomContentLoadedEvent struct {
+	Data *BrowserPageDomContentLoadedEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                                `json:"ts"`
+	Type BrowserPageDomContentLoadedEventType `json:"type"`
+}
+
+// BrowserPageDomContentLoadedEventType defines model for BrowserPageDomContentLoadedEvent.Type.
+type BrowserPageDomContentLoadedEventType string
+
+// BrowserPageDomContentLoadedEventData defines model for BrowserPageDomContentLoadedEventData.
+type BrowserPageDomContentLoadedEventData struct {
+	// CdpTimestamp Chrome monotonic clock value in seconds at which DOMContentLoaded fired, relative to browser process start (not Unix epoch). Use `ts` for wall-clock time.
+	CdpTimestamp float32 `json:"cdp_timestamp"`
+
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserPageLayoutSettledEvent A browser layout settled event emitted 1 second after page load with no intervening layout shifts, indicating visual stability. Each layout shift resets the 1-second timer.
+type BrowserPageLayoutSettledEvent struct {
+	// Data Browser event context stamped by the browser monitor onto all CDP-sourced events. Identifies the target, frame, and navigation epoch in which the event occurred.
+	Data *BrowserEventContext `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                             `json:"ts"`
+	Type BrowserPageLayoutSettledEventType `json:"type"`
+}
+
+// BrowserPageLayoutSettledEventType defines model for BrowserPageLayoutSettledEvent.Type.
+type BrowserPageLayoutSettledEventType string
+
+// BrowserPageLayoutShiftEvent A browser cumulative layout shift (CLS) event from the Performance Timeline API.
+type BrowserPageLayoutShiftEvent struct {
+	Data *BrowserPageLayoutShiftEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                           `json:"ts"`
+	Type BrowserPageLayoutShiftEventType `json:"type"`
+}
+
+// BrowserPageLayoutShiftEventType defines model for BrowserPageLayoutShiftEvent.Type.
+type BrowserPageLayoutShiftEventType string
+
+// BrowserPageLayoutShiftEventData defines model for BrowserPageLayoutShiftEventData.
+type BrowserPageLayoutShiftEventData struct {
+	// Duration Duration of the layout shift entry in milliseconds (always 0 for layout shifts per spec).
+	Duration float32 `json:"duration"`
+
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// LayoutShiftDetails PerformanceLayoutShift attributes from the Performance Timeline entry.
+	LayoutShiftDetails *struct {
+		// HadRecentInput True if the layout shift was preceded by user input within 500ms, excluding it from CLS.
+		HadRecentInput *bool `json:"had_recent_input,omitempty"`
+
+		// Value Layout shift score for this entry (contribution to CLS).
+		Value *float32 `json:"value,omitempty"`
+	} `json:"layout_shift_details,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// SourceFrameId CDP frame identifier of the frame where the layout shift occurred.
+	SourceFrameId string `json:"source_frame_id"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Time Performance Timeline timestamp of the layout shift in milliseconds.
+	Time float32 `json:"time"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserPageLcpEvent A browser Largest Contentful Paint (LCP) event from the Performance Timeline API.
+type BrowserPageLcpEvent struct {
+	Data *BrowserPageLcpEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                   `json:"ts"`
+	Type BrowserPageLcpEventType `json:"type"`
+}
+
+// BrowserPageLcpEventType defines model for BrowserPageLcpEvent.Type.
+type BrowserPageLcpEventType string
+
+// BrowserPageLcpEventData defines model for BrowserPageLcpEventData.
+type BrowserPageLcpEventData struct {
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// LcpDetails LargestContentfulPaint attributes from the Performance Timeline entry.
+	LcpDetails *struct {
+		// ElementId id attribute of the LCP element, if present.
+		ElementId *string `json:"element_id,omitempty"`
+
+		// LoadTime Load time of the LCP element in milliseconds.
+		LoadTime *float32 `json:"load_time,omitempty"`
+
+		// NodeId CDP DOM node identifier of the LCP element.
+		NodeId *int `json:"node_id,omitempty"`
+
+		// RenderTime Render time of the LCP element in milliseconds; 0 for cross-origin images without Timing-Allow-Origin.
+		RenderTime *float32 `json:"render_time,omitempty"`
+
+		// Size Visible area of the LCP element in pixels squared.
+		Size *float32 `json:"size,omitempty"`
+
+		// Url URL of the LCP element for image or video elements.
+		Url *string `json:"url,omitempty"`
+	} `json:"lcp_details,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// SourceFrameId CDP frame identifier of the frame where the LCP element was rendered.
+	SourceFrameId string `json:"source_frame_id"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Time Performance Timeline timestamp of the LCP entry in milliseconds.
+	Time float32 `json:"time"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserPageLoadEvent A browser page load event (CDP Page.loadEventFired).
+type BrowserPageLoadEvent struct {
+	Data *BrowserPageLoadEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                    `json:"ts"`
+	Type BrowserPageLoadEventType `json:"type"`
+}
+
+// BrowserPageLoadEventType defines model for BrowserPageLoadEvent.Type.
+type BrowserPageLoadEventType string
+
+// BrowserPageLoadEventData defines model for BrowserPageLoadEventData.
+type BrowserPageLoadEventData struct {
+	// CdpTimestamp Chrome monotonic clock value in seconds at which the load event fired, relative to browser process start (not Unix epoch). Use `ts` for wall-clock time.
+	CdpTimestamp float32 `json:"cdp_timestamp"`
+
+	// FrameId CDP frame identifier within the target.
+	FrameId *string `json:"frame_id,omitempty"`
+
+	// LoaderId CDP document loader identifier, reset on each navigation.
+	LoaderId *string `json:"loader_id,omitempty"`
+
+	// NavSeq Monotonically increasing navigation sequence number, incremented on each top-level navigation within the target.
+	NavSeq int64 `json:"nav_seq"`
+
+	// SessionId CDP session identifier for the target connection.
+	SessionId string `json:"session_id"`
+
+	// TargetId Browser target identifier (stable across navigations within a tab).
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Url URL relevant to this event; page URL for navigation and page events, request URL for network events.
+	Url *string `json:"url,omitempty"`
+}
+
+// BrowserPageNavigationEvent A browser page navigation started event (CDP Page.frameNavigated). Carries nav context fields inline but not nav_seq, as this event resets the navigation epoch.
+type BrowserPageNavigationEvent struct {
+	Data *BrowserPageNavigationEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                          `json:"ts"`
+	Type BrowserPageNavigationEventType `json:"type"`
+}
+
+// BrowserPageNavigationEventType defines model for BrowserPageNavigationEvent.Type.
+type BrowserPageNavigationEventType string
+
+// BrowserPageNavigationEventData defines model for BrowserPageNavigationEventData.
+type BrowserPageNavigationEventData struct {
+	// FrameId CDP frame identifier of the navigated frame.
+	FrameId string `json:"frame_id"`
+
+	// LoaderId New CDP document loader identifier assigned for this navigation.
+	LoaderId string `json:"loader_id"`
+
+	// ParentFrameId Parent frame identifier for subframe navigations; absent for top-level navigations.
+	ParentFrameId *string `json:"parent_frame_id,omitempty"`
+
+	// SessionId CDP session identifier.
+	SessionId string `json:"session_id"`
+
+	// TargetId Browser target identifier.
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Url URL navigated to.
+	Url string `json:"url"`
+}
+
+// BrowserPageNavigationSettledEvent Emitted when page_dom_content_loaded and page_layout_settled have both fired for the same navigation, indicating the page is loaded and visually stable. Independent of network_idle; a single pending request does not block it.
+type BrowserPageNavigationSettledEvent struct {
+	// Data Browser event context stamped by the browser monitor onto all CDP-sourced events. Identifies the target, frame, and navigation epoch in which the event occurred.
+	Data *BrowserEventContext `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                                 `json:"ts"`
+	Type BrowserPageNavigationSettledEventType `json:"type"`
+}
+
+// BrowserPageNavigationSettledEventType defines model for BrowserPageNavigationSettledEvent.Type.
+type BrowserPageNavigationSettledEventType string
+
+// BrowserPageTabOpenedEvent A new browser tab or target was opened (CDP Target.attachedToTarget for page targets). Fires before a CDP session is attached to the new target, so `session_id`, `frame_id`, `loader_id`, and `nav_seq` are absent; this event does not compose `BrowserEventContext`. Consumers reading context fields generically should treat it as a special case.
+type BrowserPageTabOpenedEvent struct {
+	Data *BrowserPageTabOpenedEventData `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source BrowserEventSource `json:"source"`
+
+	// Truncated True if the data field was truncated due to size limits.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Event timestamp in Unix microseconds.
+	Ts   int64                         `json:"ts"`
+	Type BrowserPageTabOpenedEventType `json:"type"`
+}
+
+// BrowserPageTabOpenedEventType defines model for BrowserPageTabOpenedEvent.Type.
+type BrowserPageTabOpenedEventType string
+
+// BrowserPageTabOpenedEventData defines model for BrowserPageTabOpenedEventData.
+type BrowserPageTabOpenedEventData struct {
+	// OpenerId Target identifier of the tab that opened this one, if any.
+	OpenerId *string `json:"opener_id,omitempty"`
+
+	// TargetId CDP target identifier for the newly opened tab.
+	TargetId string `json:"target_id"`
+
+	// TargetType CDP target type of the page that produced the event.
+	TargetType BrowserTargetType `json:"target_type"`
+
+	// Title Initial page title of the new tab.
+	Title *string `json:"title,omitempty"`
+
+	// Url Initial URL of the new tab.
+	Url string `json:"url"`
+}
+
+// BrowserTargetType CDP target type of the page that produced the event.
+type BrowserTargetType string
+
+// BrowserTelemetryCategoriesConfig Per-category telemetry capture settings for browser events.
+type BrowserTelemetryCategoriesConfig struct {
+	// Console Console output (log, warn, error) and uncaught exceptions.
+	Console *BrowserTelemetryCategoryConfig `json:"console,omitempty"`
+
+	// Interaction User interaction events (clicks, keydowns, scroll).
+	Interaction *BrowserTelemetryCategoryConfig `json:"interaction,omitempty"`
+
+	// Network HTTP request/response metadata.
+	Network *BrowserTelemetryCategoryConfig `json:"network,omitempty"`
+
+	// Page Page lifecycle events (navigation, load, layout shifts, LCP).
+	Page *BrowserTelemetryCategoryConfig `json:"page,omitempty"`
+}
+
+// BrowserTelemetryCategoryConfig Configuration for a single telemetry category.
+type BrowserTelemetryCategoryConfig struct {
+	// Enabled Whether this category is captured. In PUT requests, omitting this field defaults to true (category enabled). In PATCH requests, omitting this field (or sending an empty object `{}`) is a no-op; the category retains its current state. To enable or disable a category via PATCH, you must send an explicit `true` or `false`.
+	Enabled *bool `json:"enabled,omitempty"`
+}
+
+// BrowserTelemetryConfig Telemetry configuration for a browser. Per-category capture settings. Omit a category or set enabled: true to capture it. Set enabled: false to exclude it. Omit the browser key entirely to capture all categories. Set all four categories to enabled: false to clear the telemetry configuration.
+type BrowserTelemetryConfig struct {
+	// Browser Per-category telemetry capture settings for browser events.
+	Browser *BrowserTelemetryCategoriesConfig `json:"browser,omitempty"`
+}
 
 // ClickMouseRequest defines model for ClickMouseRequest.
 type ClickMouseRequest struct {
@@ -590,42 +1940,6 @@ type Error struct {
 	Message string `json:"message"`
 }
 
-// Event A capture event.
-type Event struct {
-	// Category Event category.
-	Category *EventCategory `json:"category,omitempty"`
-
-	// Data Arbitrary event payload.
-	Data interface{} `json:"data,omitempty"`
-
-	// Source Provenance of the event.
-	Source *EventSource `json:"source,omitempty"`
-
-	// Truncated Set by the server when the data field was truncated to fit the size limit.
-	Truncated *bool `json:"truncated,omitempty"`
-
-	// Ts Unix timestamp in microseconds. Defaults to the current time when omitted.
-	Ts *int64 `json:"ts,omitempty"`
-
-	// Type Event type identifier.
-	Type string `json:"type"`
-}
-
-// EventCategory Event category.
-type EventCategory string
-
-// EventSource Provenance of the event.
-type EventSource struct {
-	Event *string `json:"event,omitempty"`
-
-	// Kind Source kind. "kernel_api" is reserved for server-generated events.
-	Kind     *EventSourceKind   `json:"kind,omitempty"`
-	Metadata *map[string]string `json:"metadata,omitempty"`
-}
-
-// EventSourceKind Source kind. "kernel_api" is reserved for server-generated events.
-type EventSourceKind string
-
 // ExecutePlaywrightRequest Request to execute Playwright code
 type ExecutePlaywrightRequest struct {
 	// Code TypeScript/JavaScript code to execute. The code has access to 'page', 'context', and 'browser' variables.
@@ -692,6 +2006,11 @@ type FileSystemEvent struct {
 
 // FileSystemEventType Event type.
 type FileSystemEventType string
+
+// KnownBrowserTelemetryEvent Discriminated union of browser telemetry events emitted by the Kernel image. This is a structural taxonomy: any event on the telemetry stream whose `data` conforms to one of the variants below (selected by `type`) is a `KnownBrowserTelemetryEvent`, regardless of who published it. Caller-published events via POST /telemetry/events are not constrained to this union; see `TelemetryEvent` for the wire shape. Validation of caller payloads against this taxonomy is the consumer's responsibility.
+type KnownBrowserTelemetryEvent struct {
+	union json.RawMessage
+}
 
 // ListFiles Array of file or directory information entries.
 type ListFiles = []FileInfo
@@ -935,16 +2254,16 @@ type ProcessStreamEventEvent string
 // ProcessStreamEventStream Source stream of the data chunk.
 type ProcessStreamEventStream string
 
-// PublishEventRequest Request body for publishing an event into the event bus.
+// PublishEventRequest Request body for publishing an event into the telemetry stream.
 type PublishEventRequest struct {
 	// Category Event category.
 	Category *PublishEventRequestCategory `json:"category,omitempty"`
 
-	// Data Capture Session Event Payload
+	// Data Telemetry event payload.
 	Data interface{} `json:"data,omitempty"`
 
-	// Source Provenance of the event.
-	Source *EventSource `json:"source,omitempty"`
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source *BrowserEventSource `json:"source,omitempty"`
 
 	// Type Event type identifier.
 	Type string `json:"type"`
@@ -952,15 +2271,6 @@ type PublishEventRequest struct {
 
 // PublishEventRequestCategory Event category.
 type PublishEventRequestCategory string
-
-// PublishedEnvelope The envelope assigned to a successfully published event.
-type PublishedEnvelope struct {
-	// Event A capture event.
-	Event Event `json:"event"`
-
-	// Seq Process-monotonic sequence number assigned across the lifetime of the server. Use with Last-Event-ID to resume the SSE stream from this point.
-	Seq int64 `json:"seq"`
-}
 
 // RecorderInfo defines model for RecorderInfo.
 type RecorderInfo struct {
@@ -1038,12 +2348,6 @@ type SleepAction struct {
 	DurationMs int `json:"duration_ms"`
 }
 
-// StartCaptureSessionRequest Optional capture configuration. All fields default to the server-defined profile when omitted or when no body is sent.
-type StartCaptureSessionRequest struct {
-	// Config Capture filtering preferences.
-	Config *CaptureConfig `json:"config,omitempty"`
-}
-
 // StartFsWatchRequest defines model for StartFsWatchRequest.
 type StartFsWatchRequest struct {
 	// Path Directory to watch.
@@ -1077,6 +2381,51 @@ type StopRecordingRequest struct {
 	Id *string `json:"id,omitempty"`
 }
 
+// TelemetryEnvelope The envelope assigned to a successfully published event.
+type TelemetryEnvelope struct {
+	// Event A telemetry event. The wire-level event shape accepted by the publish endpoint and emitted on the SSE stream. Arbitrary `type` strings and `data` payloads are admitted. For browser events emitted by the Kernel image, `data` conforms to the per-type schema documented in the `Browser*Event` / `Browser*EventData` definitions, selected by `type`.
+	Event TelemetryEvent `json:"event"`
+
+	// Seq Process-monotonic sequence number assigned across the lifetime of the server. Use with Last-Event-ID to resume the SSE stream from this point.
+	Seq int64 `json:"seq"`
+}
+
+// TelemetryEvent A telemetry event. The wire-level event shape accepted by the publish endpoint and emitted on the SSE stream. Arbitrary `type` strings and `data` payloads are admitted. For browser events emitted by the Kernel image, `data` conforms to the per-type schema documented in the `Browser*Event` / `Browser*EventData` definitions, selected by `type`.
+type TelemetryEvent struct {
+	// Category Event category.
+	Category *TelemetryEventCategory `json:"category,omitempty"`
+
+	// Data Arbitrary JSON payload. For browser events listed in `KnownBrowserTelemetryEvent`, the payload conforms to the corresponding `Browser*EventData` schema.
+	Data interface{} `json:"data,omitempty"`
+
+	// Source Provenance metadata identifying which producer emitted the event.
+	Source *BrowserEventSource `json:"source,omitempty"`
+
+	// Truncated Set by the server when the data field was truncated to fit the size limit.
+	Truncated *bool `json:"truncated,omitempty"`
+
+	// Ts Unix timestamp in microseconds. Defaults to the current time when omitted.
+	Ts *int64 `json:"ts,omitempty"`
+
+	// Type Event type identifier.
+	Type string `json:"type"`
+}
+
+// TelemetryEventCategory Event category.
+type TelemetryEventCategory string
+
+// TelemetryState Current telemetry configuration.
+type TelemetryState struct {
+	// AppliedAt Wall-clock time at which the current configuration was applied. Omitted when telemetry is not configured.
+	AppliedAt *time.Time `json:"applied_at,omitempty"`
+
+	// Config Telemetry configuration for a browser. Per-category capture settings. Omit a category or set enabled: true to capture it. Set enabled: false to exclude it. Omit the browser key entirely to capture all categories. Set all four categories to enabled: false to clear the telemetry configuration.
+	Config BrowserTelemetryConfig `json:"config"`
+
+	// Seq Process-monotonic sequence number of the last published event. Does not reset across configuration changes.
+	Seq int64 `json:"seq"`
+}
+
 // TypeTextRequest defines model for TypeTextRequest.
 type TypeTextRequest struct {
 	// Delay Delay in milliseconds between keystrokes. Ignored when smooth is true.
@@ -1096,12 +2445,6 @@ type TypeTextRequest struct {
 	// Default 0. Only applies when smooth is true (silently ignored when
 	// smooth is false).
 	TypoChance *float32 `json:"typo_chance,omitempty"`
-}
-
-// UpdateCaptureSessionRequest Fields to update on the capture session.
-type UpdateCaptureSessionRequest struct {
-	// Config Capture filtering preferences.
-	Config *CaptureConfig `json:"config,omitempty"`
 }
 
 // WriteClipboardRequest defines model for WriteClipboardRequest.
@@ -1141,12 +2484,6 @@ type UploadExtensionsAndRestartMultipartBody struct {
 		// ZipFile Zip archive containing an unpacked Chromium extension (must include manifest.json)
 		ZipFile openapi_types.File `json:"zip_file"`
 	} `json:"extensions"`
-}
-
-// StreamEventsParams defines parameters for StreamEvents.
-type StreamEventsParams struct {
-	// LastEventID Resume after this sequence number. Omit or send 0 to start from the current position. Sequence numbers are process-monotonic, so a value from a previous session resumes correctly from that point.
-	LastEventID *string `json:"Last-Event-ID,omitempty"`
 }
 
 // DownloadDirZipParams defines parameters for DownloadDirZip.
@@ -1247,6 +2584,12 @@ type DownloadRecordingParams struct {
 	Id *string `form:"id,omitempty" json:"id,omitempty"`
 }
 
+// StreamTelemetryEventsParams defines parameters for StreamTelemetryEvents.
+type StreamTelemetryEventsParams struct {
+	// LastEventID Resume after this sequence number. Omit or send 0 to start from the current position. Sequence numbers are process-monotonic, so any previous value resumes correctly from that point.
+	LastEventID *string `json:"Last-Event-ID,omitempty"`
+}
+
 // PatchChromiumFlagsJSONRequestBody defines body for PatchChromiumFlags for application/json ContentType.
 type PatchChromiumFlagsJSONRequestBody PatchChromiumFlagsJSONBody
 
@@ -1288,15 +2631,6 @@ type TypeTextJSONRequestBody = TypeTextRequest
 
 // PatchDisplayJSONRequestBody defines body for PatchDisplay for application/json ContentType.
 type PatchDisplayJSONRequestBody = PatchDisplayRequest
-
-// UpdateCaptureSessionJSONRequestBody defines body for UpdateCaptureSession for application/json ContentType.
-type UpdateCaptureSessionJSONRequestBody = UpdateCaptureSessionRequest
-
-// StartCaptureSessionJSONRequestBody defines body for StartCaptureSession for application/json ContentType.
-type StartCaptureSessionJSONRequestBody = StartCaptureSessionRequest
-
-// PublishEventJSONRequestBody defines body for PublishEvent for application/json ContentType.
-type PublishEventJSONRequestBody = PublishEventRequest
 
 // CreateDirectoryJSONRequestBody defines body for CreateDirectory for application/json ContentType.
 type CreateDirectoryJSONRequestBody = CreateDirectoryRequest
@@ -1351,6 +2685,704 @@ type StartRecordingJSONRequestBody = StartRecordingRequest
 
 // StopRecordingJSONRequestBody defines body for StopRecording for application/json ContentType.
 type StopRecordingJSONRequestBody = StopRecordingRequest
+
+// PatchTelemetryJSONRequestBody defines body for PatchTelemetry for application/json ContentType.
+type PatchTelemetryJSONRequestBody = BrowserTelemetryConfig
+
+// PutTelemetryJSONRequestBody defines body for PutTelemetry for application/json ContentType.
+type PutTelemetryJSONRequestBody = BrowserTelemetryConfig
+
+// PublishTelemetryEventJSONRequestBody defines body for PublishTelemetryEvent for application/json ContentType.
+type PublishTelemetryEventJSONRequestBody = PublishEventRequest
+
+// AsBrowserConsoleLogEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserConsoleLogEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserConsoleLogEvent() (BrowserConsoleLogEvent, error) {
+	var body BrowserConsoleLogEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserConsoleLogEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserConsoleLogEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserConsoleLogEvent(v BrowserConsoleLogEvent) error {
+	v.Type = "console_log"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserConsoleLogEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserConsoleLogEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserConsoleLogEvent(v BrowserConsoleLogEvent) error {
+	v.Type = "console_log"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserConsoleErrorEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserConsoleErrorEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserConsoleErrorEvent() (BrowserConsoleErrorEvent, error) {
+	var body BrowserConsoleErrorEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserConsoleErrorEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserConsoleErrorEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserConsoleErrorEvent(v BrowserConsoleErrorEvent) error {
+	v.Type = "console_error"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserConsoleErrorEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserConsoleErrorEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserConsoleErrorEvent(v BrowserConsoleErrorEvent) error {
+	v.Type = "console_error"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserNetworkRequestEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserNetworkRequestEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserNetworkRequestEvent() (BrowserNetworkRequestEvent, error) {
+	var body BrowserNetworkRequestEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserNetworkRequestEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserNetworkRequestEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserNetworkRequestEvent(v BrowserNetworkRequestEvent) error {
+	v.Type = "network_request"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserNetworkRequestEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserNetworkRequestEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserNetworkRequestEvent(v BrowserNetworkRequestEvent) error {
+	v.Type = "network_request"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserNetworkResponseEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserNetworkResponseEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserNetworkResponseEvent() (BrowserNetworkResponseEvent, error) {
+	var body BrowserNetworkResponseEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserNetworkResponseEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserNetworkResponseEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserNetworkResponseEvent(v BrowserNetworkResponseEvent) error {
+	v.Type = "network_response"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserNetworkResponseEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserNetworkResponseEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserNetworkResponseEvent(v BrowserNetworkResponseEvent) error {
+	v.Type = "network_response"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserNetworkLoadingFailedEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserNetworkLoadingFailedEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserNetworkLoadingFailedEvent() (BrowserNetworkLoadingFailedEvent, error) {
+	var body BrowserNetworkLoadingFailedEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserNetworkLoadingFailedEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserNetworkLoadingFailedEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserNetworkLoadingFailedEvent(v BrowserNetworkLoadingFailedEvent) error {
+	v.Type = "network_loading_failed"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserNetworkLoadingFailedEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserNetworkLoadingFailedEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserNetworkLoadingFailedEvent(v BrowserNetworkLoadingFailedEvent) error {
+	v.Type = "network_loading_failed"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserNetworkIdleEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserNetworkIdleEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserNetworkIdleEvent() (BrowserNetworkIdleEvent, error) {
+	var body BrowserNetworkIdleEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserNetworkIdleEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserNetworkIdleEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserNetworkIdleEvent(v BrowserNetworkIdleEvent) error {
+	v.Type = "network_idle"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserNetworkIdleEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserNetworkIdleEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserNetworkIdleEvent(v BrowserNetworkIdleEvent) error {
+	v.Type = "network_idle"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserPageNavigationEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserPageNavigationEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserPageNavigationEvent() (BrowserPageNavigationEvent, error) {
+	var body BrowserPageNavigationEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserPageNavigationEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserPageNavigationEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserPageNavigationEvent(v BrowserPageNavigationEvent) error {
+	v.Type = "page_navigation"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserPageNavigationEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserPageNavigationEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserPageNavigationEvent(v BrowserPageNavigationEvent) error {
+	v.Type = "page_navigation"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserPageDomContentLoadedEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserPageDomContentLoadedEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserPageDomContentLoadedEvent() (BrowserPageDomContentLoadedEvent, error) {
+	var body BrowserPageDomContentLoadedEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserPageDomContentLoadedEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserPageDomContentLoadedEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserPageDomContentLoadedEvent(v BrowserPageDomContentLoadedEvent) error {
+	v.Type = "page_dom_content_loaded"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserPageDomContentLoadedEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserPageDomContentLoadedEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserPageDomContentLoadedEvent(v BrowserPageDomContentLoadedEvent) error {
+	v.Type = "page_dom_content_loaded"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserPageLoadEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserPageLoadEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserPageLoadEvent() (BrowserPageLoadEvent, error) {
+	var body BrowserPageLoadEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserPageLoadEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserPageLoadEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserPageLoadEvent(v BrowserPageLoadEvent) error {
+	v.Type = "page_load"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserPageLoadEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserPageLoadEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserPageLoadEvent(v BrowserPageLoadEvent) error {
+	v.Type = "page_load"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserPageTabOpenedEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserPageTabOpenedEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserPageTabOpenedEvent() (BrowserPageTabOpenedEvent, error) {
+	var body BrowserPageTabOpenedEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserPageTabOpenedEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserPageTabOpenedEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserPageTabOpenedEvent(v BrowserPageTabOpenedEvent) error {
+	v.Type = "page_tab_opened"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserPageTabOpenedEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserPageTabOpenedEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserPageTabOpenedEvent(v BrowserPageTabOpenedEvent) error {
+	v.Type = "page_tab_opened"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserPageLayoutShiftEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserPageLayoutShiftEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserPageLayoutShiftEvent() (BrowserPageLayoutShiftEvent, error) {
+	var body BrowserPageLayoutShiftEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserPageLayoutShiftEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserPageLayoutShiftEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserPageLayoutShiftEvent(v BrowserPageLayoutShiftEvent) error {
+	v.Type = "page_layout_shift"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserPageLayoutShiftEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserPageLayoutShiftEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserPageLayoutShiftEvent(v BrowserPageLayoutShiftEvent) error {
+	v.Type = "page_layout_shift"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserPageLcpEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserPageLcpEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserPageLcpEvent() (BrowserPageLcpEvent, error) {
+	var body BrowserPageLcpEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserPageLcpEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserPageLcpEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserPageLcpEvent(v BrowserPageLcpEvent) error {
+	v.Type = "page_lcp"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserPageLcpEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserPageLcpEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserPageLcpEvent(v BrowserPageLcpEvent) error {
+	v.Type = "page_lcp"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserPageLayoutSettledEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserPageLayoutSettledEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserPageLayoutSettledEvent() (BrowserPageLayoutSettledEvent, error) {
+	var body BrowserPageLayoutSettledEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserPageLayoutSettledEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserPageLayoutSettledEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserPageLayoutSettledEvent(v BrowserPageLayoutSettledEvent) error {
+	v.Type = "page_layout_settled"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserPageLayoutSettledEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserPageLayoutSettledEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserPageLayoutSettledEvent(v BrowserPageLayoutSettledEvent) error {
+	v.Type = "page_layout_settled"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserPageNavigationSettledEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserPageNavigationSettledEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserPageNavigationSettledEvent() (BrowserPageNavigationSettledEvent, error) {
+	var body BrowserPageNavigationSettledEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserPageNavigationSettledEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserPageNavigationSettledEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserPageNavigationSettledEvent(v BrowserPageNavigationSettledEvent) error {
+	v.Type = "page_navigation_settled"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserPageNavigationSettledEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserPageNavigationSettledEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserPageNavigationSettledEvent(v BrowserPageNavigationSettledEvent) error {
+	v.Type = "page_navigation_settled"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserInteractionClickEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserInteractionClickEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserInteractionClickEvent() (BrowserInteractionClickEvent, error) {
+	var body BrowserInteractionClickEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserInteractionClickEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserInteractionClickEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserInteractionClickEvent(v BrowserInteractionClickEvent) error {
+	v.Type = "interaction_click"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserInteractionClickEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserInteractionClickEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserInteractionClickEvent(v BrowserInteractionClickEvent) error {
+	v.Type = "interaction_click"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserInteractionKeyEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserInteractionKeyEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserInteractionKeyEvent() (BrowserInteractionKeyEvent, error) {
+	var body BrowserInteractionKeyEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserInteractionKeyEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserInteractionKeyEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserInteractionKeyEvent(v BrowserInteractionKeyEvent) error {
+	v.Type = "interaction_key"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserInteractionKeyEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserInteractionKeyEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserInteractionKeyEvent(v BrowserInteractionKeyEvent) error {
+	v.Type = "interaction_key"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserInteractionScrollSettledEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserInteractionScrollSettledEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserInteractionScrollSettledEvent() (BrowserInteractionScrollSettledEvent, error) {
+	var body BrowserInteractionScrollSettledEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserInteractionScrollSettledEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserInteractionScrollSettledEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserInteractionScrollSettledEvent(v BrowserInteractionScrollSettledEvent) error {
+	v.Type = "interaction_scroll_settled"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserInteractionScrollSettledEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserInteractionScrollSettledEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserInteractionScrollSettledEvent(v BrowserInteractionScrollSettledEvent) error {
+	v.Type = "interaction_scroll_settled"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserMonitorScreenshotEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserMonitorScreenshotEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserMonitorScreenshotEvent() (BrowserMonitorScreenshotEvent, error) {
+	var body BrowserMonitorScreenshotEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserMonitorScreenshotEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserMonitorScreenshotEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserMonitorScreenshotEvent(v BrowserMonitorScreenshotEvent) error {
+	v.Type = "monitor_screenshot"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserMonitorScreenshotEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserMonitorScreenshotEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserMonitorScreenshotEvent(v BrowserMonitorScreenshotEvent) error {
+	v.Type = "monitor_screenshot"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserMonitorDisconnectedEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserMonitorDisconnectedEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserMonitorDisconnectedEvent() (BrowserMonitorDisconnectedEvent, error) {
+	var body BrowserMonitorDisconnectedEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserMonitorDisconnectedEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserMonitorDisconnectedEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserMonitorDisconnectedEvent(v BrowserMonitorDisconnectedEvent) error {
+	v.Type = "monitor_disconnected"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserMonitorDisconnectedEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserMonitorDisconnectedEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserMonitorDisconnectedEvent(v BrowserMonitorDisconnectedEvent) error {
+	v.Type = "monitor_disconnected"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserMonitorReconnectedEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserMonitorReconnectedEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserMonitorReconnectedEvent() (BrowserMonitorReconnectedEvent, error) {
+	var body BrowserMonitorReconnectedEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserMonitorReconnectedEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserMonitorReconnectedEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserMonitorReconnectedEvent(v BrowserMonitorReconnectedEvent) error {
+	v.Type = "monitor_reconnected"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserMonitorReconnectedEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserMonitorReconnectedEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserMonitorReconnectedEvent(v BrowserMonitorReconnectedEvent) error {
+	v.Type = "monitor_reconnected"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserMonitorReconnectFailedEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserMonitorReconnectFailedEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserMonitorReconnectFailedEvent() (BrowserMonitorReconnectFailedEvent, error) {
+	var body BrowserMonitorReconnectFailedEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserMonitorReconnectFailedEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserMonitorReconnectFailedEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserMonitorReconnectFailedEvent(v BrowserMonitorReconnectFailedEvent) error {
+	v.Type = "monitor_reconnect_failed"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserMonitorReconnectFailedEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserMonitorReconnectFailedEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserMonitorReconnectFailedEvent(v BrowserMonitorReconnectFailedEvent) error {
+	v.Type = "monitor_reconnect_failed"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsBrowserMonitorInitFailedEvent returns the union data inside the KnownBrowserTelemetryEvent as a BrowserMonitorInitFailedEvent
+func (t KnownBrowserTelemetryEvent) AsBrowserMonitorInitFailedEvent() (BrowserMonitorInitFailedEvent, error) {
+	var body BrowserMonitorInitFailedEvent
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromBrowserMonitorInitFailedEvent overwrites any union data inside the KnownBrowserTelemetryEvent as the provided BrowserMonitorInitFailedEvent
+func (t *KnownBrowserTelemetryEvent) FromBrowserMonitorInitFailedEvent(v BrowserMonitorInitFailedEvent) error {
+	v.Type = "monitor_init_failed"
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeBrowserMonitorInitFailedEvent performs a merge with any union data inside the KnownBrowserTelemetryEvent, using the provided BrowserMonitorInitFailedEvent
+func (t *KnownBrowserTelemetryEvent) MergeBrowserMonitorInitFailedEvent(v BrowserMonitorInitFailedEvent) error {
+	v.Type = "monitor_init_failed"
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t KnownBrowserTelemetryEvent) Discriminator() (string, error) {
+	var discriminator struct {
+		Discriminator string `json:"type"`
+	}
+	err := json.Unmarshal(t.union, &discriminator)
+	return discriminator.Discriminator, err
+}
+
+func (t KnownBrowserTelemetryEvent) ValueByDiscriminator() (interface{}, error) {
+	discriminator, err := t.Discriminator()
+	if err != nil {
+		return nil, err
+	}
+	switch discriminator {
+	case "console_error":
+		return t.AsBrowserConsoleErrorEvent()
+	case "console_log":
+		return t.AsBrowserConsoleLogEvent()
+	case "interaction_click":
+		return t.AsBrowserInteractionClickEvent()
+	case "interaction_key":
+		return t.AsBrowserInteractionKeyEvent()
+	case "interaction_scroll_settled":
+		return t.AsBrowserInteractionScrollSettledEvent()
+	case "monitor_disconnected":
+		return t.AsBrowserMonitorDisconnectedEvent()
+	case "monitor_init_failed":
+		return t.AsBrowserMonitorInitFailedEvent()
+	case "monitor_reconnect_failed":
+		return t.AsBrowserMonitorReconnectFailedEvent()
+	case "monitor_reconnected":
+		return t.AsBrowserMonitorReconnectedEvent()
+	case "monitor_screenshot":
+		return t.AsBrowserMonitorScreenshotEvent()
+	case "network_idle":
+		return t.AsBrowserNetworkIdleEvent()
+	case "network_loading_failed":
+		return t.AsBrowserNetworkLoadingFailedEvent()
+	case "network_request":
+		return t.AsBrowserNetworkRequestEvent()
+	case "network_response":
+		return t.AsBrowserNetworkResponseEvent()
+	case "page_dom_content_loaded":
+		return t.AsBrowserPageDomContentLoadedEvent()
+	case "page_layout_settled":
+		return t.AsBrowserPageLayoutSettledEvent()
+	case "page_layout_shift":
+		return t.AsBrowserPageLayoutShiftEvent()
+	case "page_lcp":
+		return t.AsBrowserPageLcpEvent()
+	case "page_load":
+		return t.AsBrowserPageLoadEvent()
+	case "page_navigation":
+		return t.AsBrowserPageNavigationEvent()
+	case "page_navigation_settled":
+		return t.AsBrowserPageNavigationSettledEvent()
+	case "page_tab_opened":
+		return t.AsBrowserPageTabOpenedEvent()
+	default:
+		return nil, errors.New("unknown discriminator value: " + discriminator)
+	}
+}
+
+func (t KnownBrowserTelemetryEvent) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *KnownBrowserTelemetryEvent) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
 
 // RequestEditorFn  is the function signature for the RequestEditor callback function
 type RequestEditorFn func(ctx context.Context, req *http.Request) error
@@ -1499,30 +3531,6 @@ type ClientInterface interface {
 
 	PatchDisplay(ctx context.Context, body PatchDisplayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// StopCaptureSession request
-	StopCaptureSession(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// GetCaptureSession request
-	GetCaptureSession(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// UpdateCaptureSessionWithBody request with any body
-	UpdateCaptureSessionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	UpdateCaptureSession(ctx context.Context, body UpdateCaptureSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// StartCaptureSessionWithBody request with any body
-	StartCaptureSessionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	StartCaptureSession(ctx context.Context, body StartCaptureSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// PublishEventWithBody request with any body
-	PublishEventWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	PublishEvent(ctx context.Context, body PublishEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
-
-	// StreamEvents request
-	StreamEvents(ctx context.Context, params *StreamEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// CreateDirectoryWithBody request with any body
 	CreateDirectoryWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
@@ -1651,6 +3659,27 @@ type ClientInterface interface {
 
 	// EnableScaleToZero request
 	EnableScaleToZero(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetTelemetry request
+	GetTelemetry(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PatchTelemetryWithBody request with any body
+	PatchTelemetryWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PatchTelemetry(ctx context.Context, body PatchTelemetryJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PutTelemetryWithBody request with any body
+	PutTelemetryWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PutTelemetry(ctx context.Context, body PutTelemetryJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// PublishTelemetryEventWithBody request with any body
+	PublishTelemetryEventWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	PublishTelemetryEvent(ctx context.Context, body PublishTelemetryEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// StreamTelemetryEvents request
+	StreamTelemetryEvents(ctx context.Context, params *StreamTelemetryEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) PatchChromiumFlagsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1991,114 +4020,6 @@ func (c *Client) PatchDisplayWithBody(ctx context.Context, contentType string, b
 
 func (c *Client) PatchDisplay(ctx context.Context, body PatchDisplayJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewPatchDisplayRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) StopCaptureSession(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewStopCaptureSessionRequest(c.Server)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) GetCaptureSession(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetCaptureSessionRequest(c.Server)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) UpdateCaptureSessionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateCaptureSessionRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) UpdateCaptureSession(ctx context.Context, body UpdateCaptureSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewUpdateCaptureSessionRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) StartCaptureSessionWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewStartCaptureSessionRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) StartCaptureSession(ctx context.Context, body StartCaptureSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewStartCaptureSessionRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) PublishEventWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPublishEventRequestWithBody(c.Server, contentType, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) PublishEvent(ctx context.Context, body PublishEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewPublishEventRequest(c.Server, body)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
-func (c *Client) StreamEvents(ctx context.Context, params *StreamEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewStreamEventsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -2675,6 +4596,102 @@ func (c *Client) DisableScaleToZero(ctx context.Context, reqEditors ...RequestEd
 
 func (c *Client) EnableScaleToZero(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewEnableScaleToZeroRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetTelemetry(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetTelemetryRequest(c.Server)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PatchTelemetryWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPatchTelemetryRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PatchTelemetry(ctx context.Context, body PatchTelemetryJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPatchTelemetryRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PutTelemetryWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPutTelemetryRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PutTelemetry(ctx context.Context, body PutTelemetryJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPutTelemetryRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishTelemetryEventWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishTelemetryEventRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) PublishTelemetryEvent(ctx context.Context, body PublishTelemetryEventJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewPublishTelemetryEventRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) StreamTelemetryEvents(ctx context.Context, params *StreamTelemetryEventsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewStreamTelemetryEventsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -3284,222 +5301,6 @@ func NewPatchDisplayRequestWithBody(server string, contentType string, body io.R
 	}
 
 	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewStopCaptureSessionRequest generates requests for StopCaptureSession
-func NewStopCaptureSessionRequest(server string) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/events/capture_session")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewGetCaptureSessionRequest generates requests for GetCaptureSession
-func NewGetCaptureSessionRequest(server string) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/events/capture_session")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
-}
-
-// NewUpdateCaptureSessionRequest calls the generic UpdateCaptureSession builder with application/json body
-func NewUpdateCaptureSessionRequest(server string, body UpdateCaptureSessionJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewUpdateCaptureSessionRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewUpdateCaptureSessionRequestWithBody generates requests for UpdateCaptureSession with any type of body
-func NewUpdateCaptureSessionRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/events/capture_session")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("PATCH", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewStartCaptureSessionRequest calls the generic StartCaptureSession builder with application/json body
-func NewStartCaptureSessionRequest(server string, body StartCaptureSessionJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewStartCaptureSessionRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewStartCaptureSessionRequestWithBody generates requests for StartCaptureSession with any type of body
-func NewStartCaptureSessionRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/events/capture_session")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewPublishEventRequest calls the generic PublishEvent builder with application/json body
-func NewPublishEventRequest(server string, body PublishEventJSONRequestBody) (*http.Request, error) {
-	var bodyReader io.Reader
-	buf, err := json.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-	bodyReader = bytes.NewReader(buf)
-	return NewPublishEventRequestWithBody(server, "application/json", bodyReader)
-}
-
-// NewPublishEventRequestWithBody generates requests for PublishEvent with any type of body
-func NewPublishEventRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/events/publish")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("POST", queryURL.String(), body)
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", contentType)
-
-	return req, nil
-}
-
-// NewStreamEventsRequest generates requests for StreamEvents
-func NewStreamEventsRequest(server string, params *StreamEventsParams) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/events/stream")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest("GET", queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	if params != nil {
-
-		if params.LastEventID != nil {
-			var headerParam0 string
-
-			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Last-Event-ID", *params.LastEventID, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
-			if err != nil {
-				return nil, err
-			}
-
-			req.Header.Set("Last-Event-ID", headerParam0)
-		}
-
-	}
 
 	return req, nil
 }
@@ -4875,6 +6676,195 @@ func NewEnableScaleToZeroRequest(server string) (*http.Request, error) {
 	return req, nil
 }
 
+// NewGetTelemetryRequest generates requests for GetTelemetry
+func NewGetTelemetryRequest(server string) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/telemetry")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewPatchTelemetryRequest calls the generic PatchTelemetry builder with application/json body
+func NewPatchTelemetryRequest(server string, body PatchTelemetryJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPatchTelemetryRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPatchTelemetryRequestWithBody generates requests for PatchTelemetry with any type of body
+func NewPatchTelemetryRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/telemetry")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PATCH", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewPutTelemetryRequest calls the generic PutTelemetry builder with application/json body
+func NewPutTelemetryRequest(server string, body PutTelemetryJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPutTelemetryRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPutTelemetryRequestWithBody generates requests for PutTelemetry with any type of body
+func NewPutTelemetryRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/telemetry")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("PUT", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewPublishTelemetryEventRequest calls the generic PublishTelemetryEvent builder with application/json body
+func NewPublishTelemetryEventRequest(server string, body PublishTelemetryEventJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewPublishTelemetryEventRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewPublishTelemetryEventRequestWithBody generates requests for PublishTelemetryEvent with any type of body
+func NewPublishTelemetryEventRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/telemetry/events")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewStreamTelemetryEventsRequest generates requests for StreamTelemetryEvents
+func NewStreamTelemetryEventsRequest(server string, params *StreamTelemetryEventsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/telemetry/stream")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		if params.LastEventID != nil {
+			var headerParam0 string
+
+			headerParam0, err = runtime.StyleParamWithOptions("simple", false, "Last-Event-ID", *params.LastEventID, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationHeader, Type: "string", Format: ""})
+			if err != nil {
+				return nil, err
+			}
+
+			req.Header.Set("Last-Event-ID", headerParam0)
+		}
+
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -4991,30 +6981,6 @@ type ClientWithResponsesInterface interface {
 	PatchDisplayWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PatchDisplayResponse, error)
 
 	PatchDisplayWithResponse(ctx context.Context, body PatchDisplayJSONRequestBody, reqEditors ...RequestEditorFn) (*PatchDisplayResponse, error)
-
-	// StopCaptureSessionWithResponse request
-	StopCaptureSessionWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*StopCaptureSessionResponse, error)
-
-	// GetCaptureSessionWithResponse request
-	GetCaptureSessionWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCaptureSessionResponse, error)
-
-	// UpdateCaptureSessionWithBodyWithResponse request with any body
-	UpdateCaptureSessionWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateCaptureSessionResponse, error)
-
-	UpdateCaptureSessionWithResponse(ctx context.Context, body UpdateCaptureSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateCaptureSessionResponse, error)
-
-	// StartCaptureSessionWithBodyWithResponse request with any body
-	StartCaptureSessionWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*StartCaptureSessionResponse, error)
-
-	StartCaptureSessionWithResponse(ctx context.Context, body StartCaptureSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*StartCaptureSessionResponse, error)
-
-	// PublishEventWithBodyWithResponse request with any body
-	PublishEventWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishEventResponse, error)
-
-	PublishEventWithResponse(ctx context.Context, body PublishEventJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishEventResponse, error)
-
-	// StreamEventsWithResponse request
-	StreamEventsWithResponse(ctx context.Context, params *StreamEventsParams, reqEditors ...RequestEditorFn) (*StreamEventsResponse, error)
 
 	// CreateDirectoryWithBodyWithResponse request with any body
 	CreateDirectoryWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateDirectoryResponse, error)
@@ -5144,6 +7110,27 @@ type ClientWithResponsesInterface interface {
 
 	// EnableScaleToZeroWithResponse request
 	EnableScaleToZeroWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*EnableScaleToZeroResponse, error)
+
+	// GetTelemetryWithResponse request
+	GetTelemetryWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetTelemetryResponse, error)
+
+	// PatchTelemetryWithBodyWithResponse request with any body
+	PatchTelemetryWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PatchTelemetryResponse, error)
+
+	PatchTelemetryWithResponse(ctx context.Context, body PatchTelemetryJSONRequestBody, reqEditors ...RequestEditorFn) (*PatchTelemetryResponse, error)
+
+	// PutTelemetryWithBodyWithResponse request with any body
+	PutTelemetryWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PutTelemetryResponse, error)
+
+	PutTelemetryWithResponse(ctx context.Context, body PutTelemetryJSONRequestBody, reqEditors ...RequestEditorFn) (*PutTelemetryResponse, error)
+
+	// PublishTelemetryEventWithBodyWithResponse request with any body
+	PublishTelemetryEventWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishTelemetryEventResponse, error)
+
+	PublishTelemetryEventWithResponse(ctx context.Context, body PublishTelemetryEventJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishTelemetryEventResponse, error)
+
+	// StreamTelemetryEventsWithResponse request
+	StreamTelemetryEventsWithResponse(ctx context.Context, params *StreamTelemetryEventsParams, reqEditors ...RequestEditorFn) (*StreamTelemetryEventsResponse, error)
 }
 
 type PatchChromiumFlagsResponse struct {
@@ -5511,145 +7498,6 @@ func (r PatchDisplayResponse) Status() string {
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r PatchDisplayResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type StopCaptureSessionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *CaptureSession
-	JSON404      *NotFoundError
-}
-
-// Status returns HTTPResponse.Status
-func (r StopCaptureSessionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r StopCaptureSessionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type GetCaptureSessionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *CaptureSession
-	JSON404      *NotFoundError
-}
-
-// Status returns HTTPResponse.Status
-func (r GetCaptureSessionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r GetCaptureSessionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type UpdateCaptureSessionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *CaptureSession
-	JSON400      *BadRequestError
-	JSON404      *NotFoundError
-}
-
-// Status returns HTTPResponse.Status
-func (r UpdateCaptureSessionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r UpdateCaptureSessionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type StartCaptureSessionResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON201      *CaptureSession
-	JSON400      *BadRequestError
-	JSON409      *ConflictError
-	JSON500      *InternalError
-}
-
-// Status returns HTTPResponse.Status
-func (r StartCaptureSessionResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r StartCaptureSessionResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type PublishEventResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	JSON200      *PublishedEnvelope
-	JSON400      *BadRequestError
-}
-
-// Status returns HTTPResponse.Status
-func (r PublishEventResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r PublishEventResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-type StreamEventsResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-}
-
-// Status returns HTTPResponse.Status
-func (r StreamEventsResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r StreamEventsResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -6449,6 +8297,122 @@ func (r EnableScaleToZeroResponse) StatusCode() int {
 	return 0
 }
 
+type GetTelemetryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryState
+	JSON404      *NotFoundError
+}
+
+// Status returns HTTPResponse.Status
+func (r GetTelemetryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetTelemetryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PatchTelemetryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryState
+	JSON400      *BadRequestError
+	JSON404      *NotFoundError
+}
+
+// Status returns HTTPResponse.Status
+func (r PatchTelemetryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PatchTelemetryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PutTelemetryResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryState
+	JSON201      *TelemetryState
+	JSON400      *BadRequestError
+	JSON500      *InternalError
+}
+
+// Status returns HTTPResponse.Status
+func (r PutTelemetryResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PutTelemetryResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type PublishTelemetryEventResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *TelemetryEnvelope
+	JSON400      *BadRequestError
+}
+
+// Status returns HTTPResponse.Status
+func (r PublishTelemetryEventResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r PublishTelemetryEventResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type StreamTelemetryEventsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+}
+
+// Status returns HTTPResponse.Status
+func (r StreamTelemetryEventsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r StreamTelemetryEventsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 // PatchChromiumFlagsWithBodyWithResponse request with arbitrary body returning *PatchChromiumFlagsResponse
 func (c *ClientWithResponses) PatchChromiumFlagsWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PatchChromiumFlagsResponse, error) {
 	rsp, err := c.PatchChromiumFlagsWithBody(ctx, contentType, body, reqEditors...)
@@ -6695,84 +8659,6 @@ func (c *ClientWithResponses) PatchDisplayWithResponse(ctx context.Context, body
 		return nil, err
 	}
 	return ParsePatchDisplayResponse(rsp)
-}
-
-// StopCaptureSessionWithResponse request returning *StopCaptureSessionResponse
-func (c *ClientWithResponses) StopCaptureSessionWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*StopCaptureSessionResponse, error) {
-	rsp, err := c.StopCaptureSession(ctx, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseStopCaptureSessionResponse(rsp)
-}
-
-// GetCaptureSessionWithResponse request returning *GetCaptureSessionResponse
-func (c *ClientWithResponses) GetCaptureSessionWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetCaptureSessionResponse, error) {
-	rsp, err := c.GetCaptureSession(ctx, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseGetCaptureSessionResponse(rsp)
-}
-
-// UpdateCaptureSessionWithBodyWithResponse request with arbitrary body returning *UpdateCaptureSessionResponse
-func (c *ClientWithResponses) UpdateCaptureSessionWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateCaptureSessionResponse, error) {
-	rsp, err := c.UpdateCaptureSessionWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateCaptureSessionResponse(rsp)
-}
-
-func (c *ClientWithResponses) UpdateCaptureSessionWithResponse(ctx context.Context, body UpdateCaptureSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateCaptureSessionResponse, error) {
-	rsp, err := c.UpdateCaptureSession(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseUpdateCaptureSessionResponse(rsp)
-}
-
-// StartCaptureSessionWithBodyWithResponse request with arbitrary body returning *StartCaptureSessionResponse
-func (c *ClientWithResponses) StartCaptureSessionWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*StartCaptureSessionResponse, error) {
-	rsp, err := c.StartCaptureSessionWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseStartCaptureSessionResponse(rsp)
-}
-
-func (c *ClientWithResponses) StartCaptureSessionWithResponse(ctx context.Context, body StartCaptureSessionJSONRequestBody, reqEditors ...RequestEditorFn) (*StartCaptureSessionResponse, error) {
-	rsp, err := c.StartCaptureSession(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseStartCaptureSessionResponse(rsp)
-}
-
-// PublishEventWithBodyWithResponse request with arbitrary body returning *PublishEventResponse
-func (c *ClientWithResponses) PublishEventWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishEventResponse, error) {
-	rsp, err := c.PublishEventWithBody(ctx, contentType, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParsePublishEventResponse(rsp)
-}
-
-func (c *ClientWithResponses) PublishEventWithResponse(ctx context.Context, body PublishEventJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishEventResponse, error) {
-	rsp, err := c.PublishEvent(ctx, body, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParsePublishEventResponse(rsp)
-}
-
-// StreamEventsWithResponse request returning *StreamEventsResponse
-func (c *ClientWithResponses) StreamEventsWithResponse(ctx context.Context, params *StreamEventsParams, reqEditors ...RequestEditorFn) (*StreamEventsResponse, error) {
-	rsp, err := c.StreamEvents(ctx, params, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseStreamEventsResponse(rsp)
 }
 
 // CreateDirectoryWithBodyWithResponse request with arbitrary body returning *CreateDirectoryResponse
@@ -7190,6 +9076,75 @@ func (c *ClientWithResponses) EnableScaleToZeroWithResponse(ctx context.Context,
 		return nil, err
 	}
 	return ParseEnableScaleToZeroResponse(rsp)
+}
+
+// GetTelemetryWithResponse request returning *GetTelemetryResponse
+func (c *ClientWithResponses) GetTelemetryWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*GetTelemetryResponse, error) {
+	rsp, err := c.GetTelemetry(ctx, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetTelemetryResponse(rsp)
+}
+
+// PatchTelemetryWithBodyWithResponse request with arbitrary body returning *PatchTelemetryResponse
+func (c *ClientWithResponses) PatchTelemetryWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PatchTelemetryResponse, error) {
+	rsp, err := c.PatchTelemetryWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePatchTelemetryResponse(rsp)
+}
+
+func (c *ClientWithResponses) PatchTelemetryWithResponse(ctx context.Context, body PatchTelemetryJSONRequestBody, reqEditors ...RequestEditorFn) (*PatchTelemetryResponse, error) {
+	rsp, err := c.PatchTelemetry(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePatchTelemetryResponse(rsp)
+}
+
+// PutTelemetryWithBodyWithResponse request with arbitrary body returning *PutTelemetryResponse
+func (c *ClientWithResponses) PutTelemetryWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PutTelemetryResponse, error) {
+	rsp, err := c.PutTelemetryWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePutTelemetryResponse(rsp)
+}
+
+func (c *ClientWithResponses) PutTelemetryWithResponse(ctx context.Context, body PutTelemetryJSONRequestBody, reqEditors ...RequestEditorFn) (*PutTelemetryResponse, error) {
+	rsp, err := c.PutTelemetry(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePutTelemetryResponse(rsp)
+}
+
+// PublishTelemetryEventWithBodyWithResponse request with arbitrary body returning *PublishTelemetryEventResponse
+func (c *ClientWithResponses) PublishTelemetryEventWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PublishTelemetryEventResponse, error) {
+	rsp, err := c.PublishTelemetryEventWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishTelemetryEventResponse(rsp)
+}
+
+func (c *ClientWithResponses) PublishTelemetryEventWithResponse(ctx context.Context, body PublishTelemetryEventJSONRequestBody, reqEditors ...RequestEditorFn) (*PublishTelemetryEventResponse, error) {
+	rsp, err := c.PublishTelemetryEvent(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParsePublishTelemetryEventResponse(rsp)
+}
+
+// StreamTelemetryEventsWithResponse request returning *StreamTelemetryEventsResponse
+func (c *ClientWithResponses) StreamTelemetryEventsWithResponse(ctx context.Context, params *StreamTelemetryEventsParams, reqEditors ...RequestEditorFn) (*StreamTelemetryEventsResponse, error) {
+	rsp, err := c.StreamTelemetryEvents(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseStreamTelemetryEventsResponse(rsp)
 }
 
 // ParsePatchChromiumFlagsResponse parses an HTTP response from a PatchChromiumFlagsWithResponse call
@@ -7736,208 +9691,6 @@ func ParsePatchDisplayResponse(rsp *http.Response) (*PatchDisplayResponse, error
 		}
 		response.JSON500 = &dest
 
-	}
-
-	return response, nil
-}
-
-// ParseStopCaptureSessionResponse parses an HTTP response from a StopCaptureSessionWithResponse call
-func ParseStopCaptureSessionResponse(rsp *http.Response) (*StopCaptureSessionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &StopCaptureSessionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CaptureSession
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFoundError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseGetCaptureSessionResponse parses an HTTP response from a GetCaptureSessionWithResponse call
-func ParseGetCaptureSessionResponse(rsp *http.Response) (*GetCaptureSessionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &GetCaptureSessionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CaptureSession
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFoundError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseUpdateCaptureSessionResponse parses an HTTP response from a UpdateCaptureSessionWithResponse call
-func ParseUpdateCaptureSessionResponse(rsp *http.Response) (*UpdateCaptureSessionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &UpdateCaptureSessionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest CaptureSession
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequestError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
-		var dest NotFoundError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON404 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseStartCaptureSessionResponse parses an HTTP response from a StartCaptureSessionWithResponse call
-func ParseStartCaptureSessionResponse(rsp *http.Response) (*StartCaptureSessionResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &StartCaptureSessionResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
-		var dest CaptureSession
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON201 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequestError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 409:
-		var dest ConflictError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON409 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
-		var dest InternalError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON500 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParsePublishEventResponse parses an HTTP response from a PublishEventWithResponse call
-func ParsePublishEventResponse(rsp *http.Response) (*PublishEventResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &PublishEventResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest PublishedEnvelope
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest BadRequestError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON400 = &dest
-
-	}
-
-	return response, nil
-}
-
-// ParseStreamEventsResponse parses an HTTP response from a StreamEventsWithResponse call
-func ParseStreamEventsResponse(rsp *http.Response) (*StreamEventsResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &StreamEventsResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
 	}
 
 	return response, nil
@@ -9249,6 +11002,175 @@ func ParseEnableScaleToZeroResponse(rsp *http.Response) (*EnableScaleToZeroRespo
 	return response, nil
 }
 
+// ParseGetTelemetryResponse parses an HTTP response from a GetTelemetryWithResponse call
+func ParseGetTelemetryResponse(rsp *http.Response) (*GetTelemetryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetTelemetryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryState
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFoundError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePatchTelemetryResponse parses an HTTP response from a PatchTelemetryWithResponse call
+func ParsePatchTelemetryResponse(rsp *http.Response) (*PatchTelemetryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PatchTelemetryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryState
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequestError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NotFoundError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePutTelemetryResponse parses an HTTP response from a PutTelemetryWithResponse call
+func ParsePutTelemetryResponse(rsp *http.Response) (*PutTelemetryResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PutTelemetryResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryState
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest TelemetryState
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequestError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest InternalError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParsePublishTelemetryEventResponse parses an HTTP response from a PublishTelemetryEventWithResponse call
+func ParsePublishTelemetryEventResponse(rsp *http.Response) (*PublishTelemetryEventResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &PublishTelemetryEventResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest TelemetryEnvelope
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest BadRequestError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseStreamTelemetryEventsResponse parses an HTTP response from a StreamTelemetryEventsWithResponse call
+func ParseStreamTelemetryEventsResponse(rsp *http.Response) (*StreamTelemetryEventsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &StreamTelemetryEventsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	return response, nil
+}
+
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// Update Chromium launch flags and restart
@@ -9299,24 +11221,6 @@ type ServerInterface interface {
 	// Update display configuration
 	// (PATCH /display)
 	PatchDisplay(w http.ResponseWriter, r *http.Request)
-	// Stop the capture session
-	// (DELETE /events/capture_session)
-	StopCaptureSession(w http.ResponseWriter, r *http.Request)
-	// Get the capture session
-	// (GET /events/capture_session)
-	GetCaptureSession(w http.ResponseWriter, r *http.Request)
-	// Update the capture session
-	// (PATCH /events/capture_session)
-	UpdateCaptureSession(w http.ResponseWriter, r *http.Request)
-	// Start the capture session
-	// (POST /events/capture_session)
-	StartCaptureSession(w http.ResponseWriter, r *http.Request)
-	// Publish an event into the event bus
-	// (POST /events/publish)
-	PublishEvent(w http.ResponseWriter, r *http.Request)
-	// Stream events as Server-Sent Events
-	// (GET /events/stream)
-	StreamEvents(w http.ResponseWriter, r *http.Request, params StreamEventsParams)
 	// Create a new directory
 	// (PUT /fs/create_directory)
 	CreateDirectory(w http.ResponseWriter, r *http.Request)
@@ -9416,6 +11320,21 @@ type ServerInterface interface {
 	// Idempotently enable scale to zero on this VM.
 	// (POST /scaletozero/enable)
 	EnableScaleToZero(w http.ResponseWriter, r *http.Request)
+	// Get telemetry configuration
+	// (GET /telemetry)
+	GetTelemetry(w http.ResponseWriter, r *http.Request)
+	// Update telemetry configuration
+	// (PATCH /telemetry)
+	PatchTelemetry(w http.ResponseWriter, r *http.Request)
+	// Set telemetry configuration
+	// (PUT /telemetry)
+	PutTelemetry(w http.ResponseWriter, r *http.Request)
+	// Publish an event into the telemetry stream
+	// (POST /telemetry/events)
+	PublishTelemetryEvent(w http.ResponseWriter, r *http.Request)
+	// Stream telemetry events as Server-Sent Events
+	// (GET /telemetry/stream)
+	StreamTelemetryEvents(w http.ResponseWriter, r *http.Request, params StreamTelemetryEventsParams)
 }
 
 // Unimplemented server implementation that returns http.StatusNotImplemented for each endpoint.
@@ -9515,42 +11434,6 @@ func (_ Unimplemented) TypeText(w http.ResponseWriter, r *http.Request) {
 // Update display configuration
 // (PATCH /display)
 func (_ Unimplemented) PatchDisplay(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotImplemented)
-}
-
-// Stop the capture session
-// (DELETE /events/capture_session)
-func (_ Unimplemented) StopCaptureSession(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotImplemented)
-}
-
-// Get the capture session
-// (GET /events/capture_session)
-func (_ Unimplemented) GetCaptureSession(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotImplemented)
-}
-
-// Update the capture session
-// (PATCH /events/capture_session)
-func (_ Unimplemented) UpdateCaptureSession(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotImplemented)
-}
-
-// Start the capture session
-// (POST /events/capture_session)
-func (_ Unimplemented) StartCaptureSession(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotImplemented)
-}
-
-// Publish an event into the event bus
-// (POST /events/publish)
-func (_ Unimplemented) PublishEvent(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotImplemented)
-}
-
-// Stream events as Server-Sent Events
-// (GET /events/stream)
-func (_ Unimplemented) StreamEvents(w http.ResponseWriter, r *http.Request, params StreamEventsParams) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -9749,6 +11632,36 @@ func (_ Unimplemented) DisableScaleToZero(w http.ResponseWriter, r *http.Request
 // Idempotently enable scale to zero on this VM.
 // (POST /scaletozero/enable)
 func (_ Unimplemented) EnableScaleToZero(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Get telemetry configuration
+// (GET /telemetry)
+func (_ Unimplemented) GetTelemetry(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Update telemetry configuration
+// (PATCH /telemetry)
+func (_ Unimplemented) PatchTelemetry(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Set telemetry configuration
+// (PUT /telemetry)
+func (_ Unimplemented) PutTelemetry(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Publish an event into the telemetry stream
+// (POST /telemetry/events)
+func (_ Unimplemented) PublishTelemetryEvent(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Stream telemetry events as Server-Sent Events
+// (GET /telemetry/stream)
+func (_ Unimplemented) StreamTelemetryEvents(w http.ResponseWriter, r *http.Request, params StreamTelemetryEventsParams) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -9976,116 +11889,6 @@ func (siw *ServerInterfaceWrapper) PatchDisplay(w http.ResponseWriter, r *http.R
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.PatchDisplay(w, r)
-	}))
-
-	for _, middleware := range siw.HandlerMiddlewares {
-		handler = middleware(handler)
-	}
-
-	handler.ServeHTTP(w, r)
-}
-
-// StopCaptureSession operation middleware
-func (siw *ServerInterfaceWrapper) StopCaptureSession(w http.ResponseWriter, r *http.Request) {
-
-	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.StopCaptureSession(w, r)
-	}))
-
-	for _, middleware := range siw.HandlerMiddlewares {
-		handler = middleware(handler)
-	}
-
-	handler.ServeHTTP(w, r)
-}
-
-// GetCaptureSession operation middleware
-func (siw *ServerInterfaceWrapper) GetCaptureSession(w http.ResponseWriter, r *http.Request) {
-
-	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.GetCaptureSession(w, r)
-	}))
-
-	for _, middleware := range siw.HandlerMiddlewares {
-		handler = middleware(handler)
-	}
-
-	handler.ServeHTTP(w, r)
-}
-
-// UpdateCaptureSession operation middleware
-func (siw *ServerInterfaceWrapper) UpdateCaptureSession(w http.ResponseWriter, r *http.Request) {
-
-	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.UpdateCaptureSession(w, r)
-	}))
-
-	for _, middleware := range siw.HandlerMiddlewares {
-		handler = middleware(handler)
-	}
-
-	handler.ServeHTTP(w, r)
-}
-
-// StartCaptureSession operation middleware
-func (siw *ServerInterfaceWrapper) StartCaptureSession(w http.ResponseWriter, r *http.Request) {
-
-	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.StartCaptureSession(w, r)
-	}))
-
-	for _, middleware := range siw.HandlerMiddlewares {
-		handler = middleware(handler)
-	}
-
-	handler.ServeHTTP(w, r)
-}
-
-// PublishEvent operation middleware
-func (siw *ServerInterfaceWrapper) PublishEvent(w http.ResponseWriter, r *http.Request) {
-
-	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.PublishEvent(w, r)
-	}))
-
-	for _, middleware := range siw.HandlerMiddlewares {
-		handler = middleware(handler)
-	}
-
-	handler.ServeHTTP(w, r)
-}
-
-// StreamEvents operation middleware
-func (siw *ServerInterfaceWrapper) StreamEvents(w http.ResponseWriter, r *http.Request) {
-
-	var err error
-
-	// Parameter object where we will unmarshal all parameters from the context
-	var params StreamEventsParams
-
-	headers := r.Header
-
-	// ------------- Optional header parameter "Last-Event-ID" -------------
-	if valueList, found := headers[http.CanonicalHeaderKey("Last-Event-ID")]; found {
-		var LastEventID string
-		n := len(valueList)
-		if n != 1 {
-			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "Last-Event-ID", Count: n})
-			return
-		}
-
-		err = runtime.BindStyledParameterWithOptions("simple", "Last-Event-ID", valueList[0], &LastEventID, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
-		if err != nil {
-			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "Last-Event-ID", Err: err})
-			return
-		}
-
-		params.LastEventID = &LastEventID
-
-	}
-
-	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.StreamEvents(w, r, params)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -10827,6 +12630,102 @@ func (siw *ServerInterfaceWrapper) EnableScaleToZero(w http.ResponseWriter, r *h
 	handler.ServeHTTP(w, r)
 }
 
+// GetTelemetry operation middleware
+func (siw *ServerInterfaceWrapper) GetTelemetry(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetTelemetry(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// PatchTelemetry operation middleware
+func (siw *ServerInterfaceWrapper) PatchTelemetry(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.PatchTelemetry(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// PutTelemetry operation middleware
+func (siw *ServerInterfaceWrapper) PutTelemetry(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.PutTelemetry(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// PublishTelemetryEvent operation middleware
+func (siw *ServerInterfaceWrapper) PublishTelemetryEvent(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.PublishTelemetryEvent(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// StreamTelemetryEvents operation middleware
+func (siw *ServerInterfaceWrapper) StreamTelemetryEvents(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params StreamTelemetryEventsParams
+
+	headers := r.Header
+
+	// ------------- Optional header parameter "Last-Event-ID" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("Last-Event-ID")]; found {
+		var LastEventID string
+		n := len(valueList)
+		if n != 1 {
+			siw.ErrorHandlerFunc(w, r, &TooManyValuesForParamError{ParamName: "Last-Event-ID", Count: n})
+			return
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "Last-Event-ID", valueList[0], &LastEventID, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: false, Type: "string", Format: ""})
+		if err != nil {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "Last-Event-ID", Err: err})
+			return
+		}
+
+		params.LastEventID = &LastEventID
+
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.StreamTelemetryEvents(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
 type UnescapedCookieParamError struct {
 	ParamName string
 	Err       error
@@ -10989,24 +12888,6 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 		r.Patch(options.BaseURL+"/display", wrapper.PatchDisplay)
 	})
 	r.Group(func(r chi.Router) {
-		r.Delete(options.BaseURL+"/events/capture_session", wrapper.StopCaptureSession)
-	})
-	r.Group(func(r chi.Router) {
-		r.Get(options.BaseURL+"/events/capture_session", wrapper.GetCaptureSession)
-	})
-	r.Group(func(r chi.Router) {
-		r.Patch(options.BaseURL+"/events/capture_session", wrapper.UpdateCaptureSession)
-	})
-	r.Group(func(r chi.Router) {
-		r.Post(options.BaseURL+"/events/capture_session", wrapper.StartCaptureSession)
-	})
-	r.Group(func(r chi.Router) {
-		r.Post(options.BaseURL+"/events/publish", wrapper.PublishEvent)
-	})
-	r.Group(func(r chi.Router) {
-		r.Get(options.BaseURL+"/events/stream", wrapper.StreamEvents)
-	})
-	r.Group(func(r chi.Router) {
 		r.Put(options.BaseURL+"/fs/create_directory", wrapper.CreateDirectory)
 	})
 	r.Group(func(r chi.Router) {
@@ -11104,6 +12985,21 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 	})
 	r.Group(func(r chi.Router) {
 		r.Post(options.BaseURL+"/scaletozero/enable", wrapper.EnableScaleToZero)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/telemetry", wrapper.GetTelemetry)
+	})
+	r.Group(func(r chi.Router) {
+		r.Patch(options.BaseURL+"/telemetry", wrapper.PatchTelemetry)
+	})
+	r.Group(func(r chi.Router) {
+		r.Put(options.BaseURL+"/telemetry", wrapper.PutTelemetry)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/telemetry/events", wrapper.PublishTelemetryEvent)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/telemetry/stream", wrapper.StreamTelemetryEvents)
 	})
 
 	return r
@@ -11663,218 +13559,6 @@ func (response PatchDisplay500JSONResponse) VisitPatchDisplayResponse(w http.Res
 	w.WriteHeader(500)
 
 	return json.NewEncoder(w).Encode(response)
-}
-
-type StopCaptureSessionRequestObject struct {
-}
-
-type StopCaptureSessionResponseObject interface {
-	VisitStopCaptureSessionResponse(w http.ResponseWriter) error
-}
-
-type StopCaptureSession200JSONResponse CaptureSession
-
-func (response StopCaptureSession200JSONResponse) VisitStopCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type StopCaptureSession404JSONResponse struct{ NotFoundErrorJSONResponse }
-
-func (response StopCaptureSession404JSONResponse) VisitStopCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(404)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetCaptureSessionRequestObject struct {
-}
-
-type GetCaptureSessionResponseObject interface {
-	VisitGetCaptureSessionResponse(w http.ResponseWriter) error
-}
-
-type GetCaptureSession200JSONResponse CaptureSession
-
-func (response GetCaptureSession200JSONResponse) VisitGetCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type GetCaptureSession404JSONResponse struct{ NotFoundErrorJSONResponse }
-
-func (response GetCaptureSession404JSONResponse) VisitGetCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(404)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateCaptureSessionRequestObject struct {
-	Body *UpdateCaptureSessionJSONRequestBody
-}
-
-type UpdateCaptureSessionResponseObject interface {
-	VisitUpdateCaptureSessionResponse(w http.ResponseWriter) error
-}
-
-type UpdateCaptureSession200JSONResponse CaptureSession
-
-func (response UpdateCaptureSession200JSONResponse) VisitUpdateCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateCaptureSession400JSONResponse struct{ BadRequestErrorJSONResponse }
-
-func (response UpdateCaptureSession400JSONResponse) VisitUpdateCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type UpdateCaptureSession404JSONResponse struct{ NotFoundErrorJSONResponse }
-
-func (response UpdateCaptureSession404JSONResponse) VisitUpdateCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(404)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type StartCaptureSessionRequestObject struct {
-	Body *StartCaptureSessionJSONRequestBody
-}
-
-type StartCaptureSessionResponseObject interface {
-	VisitStartCaptureSessionResponse(w http.ResponseWriter) error
-}
-
-type StartCaptureSession201JSONResponse CaptureSession
-
-func (response StartCaptureSession201JSONResponse) VisitStartCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(201)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type StartCaptureSession400JSONResponse struct{ BadRequestErrorJSONResponse }
-
-func (response StartCaptureSession400JSONResponse) VisitStartCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type StartCaptureSession409JSONResponse struct{ ConflictErrorJSONResponse }
-
-func (response StartCaptureSession409JSONResponse) VisitStartCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(409)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type StartCaptureSession500JSONResponse struct{ InternalErrorJSONResponse }
-
-func (response StartCaptureSession500JSONResponse) VisitStartCaptureSessionResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(500)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type PublishEventRequestObject struct {
-	Body *PublishEventJSONRequestBody
-}
-
-type PublishEventResponseObject interface {
-	VisitPublishEventResponse(w http.ResponseWriter) error
-}
-
-type PublishEvent200JSONResponse PublishedEnvelope
-
-func (response PublishEvent200JSONResponse) VisitPublishEventResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(200)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type PublishEvent400JSONResponse struct{ BadRequestErrorJSONResponse }
-
-func (response PublishEvent400JSONResponse) VisitPublishEventResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(400)
-
-	return json.NewEncoder(w).Encode(response)
-}
-
-type StreamEventsRequestObject struct {
-	Params StreamEventsParams
-}
-
-type StreamEventsResponseObject interface {
-	VisitStreamEventsResponse(w http.ResponseWriter) error
-}
-
-type StreamEvents200ResponseHeaders struct {
-	XSSEContentType string
-}
-
-type StreamEvents200TexteventStreamResponse struct {
-	Body          io.Reader
-	Headers       StreamEvents200ResponseHeaders
-	ContentLength int64
-}
-
-func (response StreamEvents200TexteventStreamResponse) VisitStreamEventsResponse(w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "text/event-stream")
-	if response.ContentLength != 0 {
-		w.Header().Set("Content-Length", fmt.Sprint(response.ContentLength))
-	}
-	w.Header().Set("X-SSE-Content-Type", fmt.Sprint(response.Headers.XSSEContentType))
-	w.Header().Set("Cache-Control", "no-cache")
-	w.Header().Set("X-Accel-Buffering", "no")
-	w.WriteHeader(200)
-
-	if closer, ok := response.Body.(io.ReadCloser); ok {
-		defer closer.Close()
-	}
-	flusher, ok := w.(http.Flusher)
-	if !ok {
-		// If w doesn't support flushing, might as well use io.Copy
-		_, err := io.Copy(w, response.Body)
-		return err
-	}
-
-	// Use a buffer for efficient copying and flushing
-	buf := make([]byte, 4096) // text/event-stream are usually very small messages
-	for {
-		n, err := response.Body.Read(buf)
-		if n > 0 {
-			if _, werr := w.Write(buf[:n]); werr != nil {
-				return werr
-			}
-			flusher.Flush() // Flush after each write
-		}
-		if err != nil {
-			if err == io.EOF {
-				return nil // End of file, no error
-			}
-			return err
-		}
-	}
 }
 
 type CreateDirectoryRequestObject struct {
@@ -13383,6 +15067,193 @@ func (response EnableScaleToZero500JSONResponse) VisitEnableScaleToZeroResponse(
 	return json.NewEncoder(w).Encode(response)
 }
 
+type GetTelemetryRequestObject struct {
+}
+
+type GetTelemetryResponseObject interface {
+	VisitGetTelemetryResponse(w http.ResponseWriter) error
+}
+
+type GetTelemetry200JSONResponse TelemetryState
+
+func (response GetTelemetry200JSONResponse) VisitGetTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type GetTelemetry404JSONResponse struct{ NotFoundErrorJSONResponse }
+
+func (response GetTelemetry404JSONResponse) VisitGetTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PatchTelemetryRequestObject struct {
+	Body *PatchTelemetryJSONRequestBody
+}
+
+type PatchTelemetryResponseObject interface {
+	VisitPatchTelemetryResponse(w http.ResponseWriter) error
+}
+
+type PatchTelemetry200JSONResponse TelemetryState
+
+func (response PatchTelemetry200JSONResponse) VisitPatchTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PatchTelemetry400JSONResponse struct{ BadRequestErrorJSONResponse }
+
+func (response PatchTelemetry400JSONResponse) VisitPatchTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PatchTelemetry404JSONResponse struct{ NotFoundErrorJSONResponse }
+
+func (response PatchTelemetry404JSONResponse) VisitPatchTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PutTelemetryRequestObject struct {
+	Body *PutTelemetryJSONRequestBody
+}
+
+type PutTelemetryResponseObject interface {
+	VisitPutTelemetryResponse(w http.ResponseWriter) error
+}
+
+type PutTelemetry200JSONResponse TelemetryState
+
+func (response PutTelemetry200JSONResponse) VisitPutTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PutTelemetry201JSONResponse TelemetryState
+
+func (response PutTelemetry201JSONResponse) VisitPutTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(201)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PutTelemetry400JSONResponse struct{ BadRequestErrorJSONResponse }
+
+func (response PutTelemetry400JSONResponse) VisitPutTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PutTelemetry500JSONResponse struct{ InternalErrorJSONResponse }
+
+func (response PutTelemetry500JSONResponse) VisitPutTelemetryResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(500)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PublishTelemetryEventRequestObject struct {
+	Body *PublishTelemetryEventJSONRequestBody
+}
+
+type PublishTelemetryEventResponseObject interface {
+	VisitPublishTelemetryEventResponse(w http.ResponseWriter) error
+}
+
+type PublishTelemetryEvent200JSONResponse TelemetryEnvelope
+
+func (response PublishTelemetryEvent200JSONResponse) VisitPublishTelemetryEventResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type PublishTelemetryEvent400JSONResponse struct{ BadRequestErrorJSONResponse }
+
+func (response PublishTelemetryEvent400JSONResponse) VisitPublishTelemetryEventResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+type StreamTelemetryEventsRequestObject struct {
+	Params StreamTelemetryEventsParams
+}
+
+type StreamTelemetryEventsResponseObject interface {
+	VisitStreamTelemetryEventsResponse(w http.ResponseWriter) error
+}
+
+type StreamTelemetryEvents200ResponseHeaders struct {
+	XSSEContentType string
+}
+
+type StreamTelemetryEvents200TexteventStreamResponse struct {
+	Body          io.Reader
+	Headers       StreamTelemetryEvents200ResponseHeaders
+	ContentLength int64
+}
+
+func (response StreamTelemetryEvents200TexteventStreamResponse) VisitStreamTelemetryEventsResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "text/event-stream")
+	if response.ContentLength != 0 {
+		w.Header().Set("Content-Length", fmt.Sprint(response.ContentLength))
+	}
+	w.Header().Set("X-SSE-Content-Type", fmt.Sprint(response.Headers.XSSEContentType))
+	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("X-Accel-Buffering", "no")
+	w.WriteHeader(200)
+
+	if closer, ok := response.Body.(io.ReadCloser); ok {
+		defer closer.Close()
+	}
+	flusher, ok := w.(http.Flusher)
+	if !ok {
+		// If w doesn't support flushing, might as well use io.Copy
+		_, err := io.Copy(w, response.Body)
+		return err
+	}
+
+	// Use a buffer for efficient copying and flushing
+	buf := make([]byte, 4096) // text/event-stream are usually very small messages
+	for {
+		n, err := response.Body.Read(buf)
+		if n > 0 {
+			if _, werr := w.Write(buf[:n]); werr != nil {
+				return werr
+			}
+			flusher.Flush() // Flush after each write
+		}
+		if err != nil {
+			if err == io.EOF {
+				return nil // End of file, no error
+			}
+			return err
+		}
+	}
+}
+
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
 	// Update Chromium launch flags and restart
@@ -13433,24 +15304,6 @@ type StrictServerInterface interface {
 	// Update display configuration
 	// (PATCH /display)
 	PatchDisplay(ctx context.Context, request PatchDisplayRequestObject) (PatchDisplayResponseObject, error)
-	// Stop the capture session
-	// (DELETE /events/capture_session)
-	StopCaptureSession(ctx context.Context, request StopCaptureSessionRequestObject) (StopCaptureSessionResponseObject, error)
-	// Get the capture session
-	// (GET /events/capture_session)
-	GetCaptureSession(ctx context.Context, request GetCaptureSessionRequestObject) (GetCaptureSessionResponseObject, error)
-	// Update the capture session
-	// (PATCH /events/capture_session)
-	UpdateCaptureSession(ctx context.Context, request UpdateCaptureSessionRequestObject) (UpdateCaptureSessionResponseObject, error)
-	// Start the capture session
-	// (POST /events/capture_session)
-	StartCaptureSession(ctx context.Context, request StartCaptureSessionRequestObject) (StartCaptureSessionResponseObject, error)
-	// Publish an event into the event bus
-	// (POST /events/publish)
-	PublishEvent(ctx context.Context, request PublishEventRequestObject) (PublishEventResponseObject, error)
-	// Stream events as Server-Sent Events
-	// (GET /events/stream)
-	StreamEvents(ctx context.Context, request StreamEventsRequestObject) (StreamEventsResponseObject, error)
 	// Create a new directory
 	// (PUT /fs/create_directory)
 	CreateDirectory(ctx context.Context, request CreateDirectoryRequestObject) (CreateDirectoryResponseObject, error)
@@ -13550,6 +15403,21 @@ type StrictServerInterface interface {
 	// Idempotently enable scale to zero on this VM.
 	// (POST /scaletozero/enable)
 	EnableScaleToZero(ctx context.Context, request EnableScaleToZeroRequestObject) (EnableScaleToZeroResponseObject, error)
+	// Get telemetry configuration
+	// (GET /telemetry)
+	GetTelemetry(ctx context.Context, request GetTelemetryRequestObject) (GetTelemetryResponseObject, error)
+	// Update telemetry configuration
+	// (PATCH /telemetry)
+	PatchTelemetry(ctx context.Context, request PatchTelemetryRequestObject) (PatchTelemetryResponseObject, error)
+	// Set telemetry configuration
+	// (PUT /telemetry)
+	PutTelemetry(ctx context.Context, request PutTelemetryRequestObject) (PutTelemetryResponseObject, error)
+	// Publish an event into the telemetry stream
+	// (POST /telemetry/events)
+	PublishTelemetryEvent(ctx context.Context, request PublishTelemetryEventRequestObject) (PublishTelemetryEventResponseObject, error)
+	// Stream telemetry events as Server-Sent Events
+	// (GET /telemetry/stream)
+	StreamTelemetryEvents(ctx context.Context, request StreamTelemetryEventsRequestObject) (StreamTelemetryEventsResponseObject, error)
 }
 
 type StrictHandlerFunc = strictnethttp.StrictHTTPHandlerFunc
@@ -14059,176 +15927,6 @@ func (sh *strictHandler) PatchDisplay(w http.ResponseWriter, r *http.Request) {
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(PatchDisplayResponseObject); ok {
 		if err := validResponse.VisitPatchDisplayResponse(w); err != nil {
-			sh.options.ResponseErrorHandlerFunc(w, r, err)
-		}
-	} else if response != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
-	}
-}
-
-// StopCaptureSession operation middleware
-func (sh *strictHandler) StopCaptureSession(w http.ResponseWriter, r *http.Request) {
-	var request StopCaptureSessionRequestObject
-
-	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.StopCaptureSession(ctx, request.(StopCaptureSessionRequestObject))
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "StopCaptureSession")
-	}
-
-	response, err := handler(r.Context(), w, r, request)
-
-	if err != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(StopCaptureSessionResponseObject); ok {
-		if err := validResponse.VisitStopCaptureSessionResponse(w); err != nil {
-			sh.options.ResponseErrorHandlerFunc(w, r, err)
-		}
-	} else if response != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
-	}
-}
-
-// GetCaptureSession operation middleware
-func (sh *strictHandler) GetCaptureSession(w http.ResponseWriter, r *http.Request) {
-	var request GetCaptureSessionRequestObject
-
-	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.GetCaptureSession(ctx, request.(GetCaptureSessionRequestObject))
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "GetCaptureSession")
-	}
-
-	response, err := handler(r.Context(), w, r, request)
-
-	if err != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(GetCaptureSessionResponseObject); ok {
-		if err := validResponse.VisitGetCaptureSessionResponse(w); err != nil {
-			sh.options.ResponseErrorHandlerFunc(w, r, err)
-		}
-	} else if response != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
-	}
-}
-
-// UpdateCaptureSession operation middleware
-func (sh *strictHandler) UpdateCaptureSession(w http.ResponseWriter, r *http.Request) {
-	var request UpdateCaptureSessionRequestObject
-
-	var body UpdateCaptureSessionJSONRequestBody
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
-		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
-		return
-	}
-	request.Body = &body
-
-	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.UpdateCaptureSession(ctx, request.(UpdateCaptureSessionRequestObject))
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "UpdateCaptureSession")
-	}
-
-	response, err := handler(r.Context(), w, r, request)
-
-	if err != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(UpdateCaptureSessionResponseObject); ok {
-		if err := validResponse.VisitUpdateCaptureSessionResponse(w); err != nil {
-			sh.options.ResponseErrorHandlerFunc(w, r, err)
-		}
-	} else if response != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
-	}
-}
-
-// StartCaptureSession operation middleware
-func (sh *strictHandler) StartCaptureSession(w http.ResponseWriter, r *http.Request) {
-	var request StartCaptureSessionRequestObject
-
-	var body StartCaptureSessionJSONRequestBody
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
-		if !errors.Is(err, io.EOF) {
-			sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
-			return
-		}
-	} else {
-		request.Body = &body
-	}
-
-	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.StartCaptureSession(ctx, request.(StartCaptureSessionRequestObject))
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "StartCaptureSession")
-	}
-
-	response, err := handler(r.Context(), w, r, request)
-
-	if err != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(StartCaptureSessionResponseObject); ok {
-		if err := validResponse.VisitStartCaptureSessionResponse(w); err != nil {
-			sh.options.ResponseErrorHandlerFunc(w, r, err)
-		}
-	} else if response != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
-	}
-}
-
-// PublishEvent operation middleware
-func (sh *strictHandler) PublishEvent(w http.ResponseWriter, r *http.Request) {
-	var request PublishEventRequestObject
-
-	var body PublishEventJSONRequestBody
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
-		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
-		return
-	}
-	request.Body = &body
-
-	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.PublishEvent(ctx, request.(PublishEventRequestObject))
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "PublishEvent")
-	}
-
-	response, err := handler(r.Context(), w, r, request)
-
-	if err != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(PublishEventResponseObject); ok {
-		if err := validResponse.VisitPublishEventResponse(w); err != nil {
-			sh.options.ResponseErrorHandlerFunc(w, r, err)
-		}
-	} else if response != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
-	}
-}
-
-// StreamEvents operation middleware
-func (sh *strictHandler) StreamEvents(w http.ResponseWriter, r *http.Request, params StreamEventsParams) {
-	var request StreamEventsRequestObject
-
-	request.Params = params
-
-	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
-		return sh.ssi.StreamEvents(ctx, request.(StreamEventsRequestObject))
-	}
-	for _, middleware := range sh.middlewares {
-		handler = middleware(handler, "StreamEvents")
-	}
-
-	response, err := handler(r.Context(), w, r, request)
-
-	if err != nil {
-		sh.options.ResponseErrorHandlerFunc(w, r, err)
-	} else if validResponse, ok := response.(StreamEventsResponseObject); ok {
-		if err := validResponse.VisitStreamEventsResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {
@@ -15195,191 +16893,432 @@ func (sh *strictHandler) EnableScaleToZero(w http.ResponseWriter, r *http.Reques
 	}
 }
 
+// GetTelemetry operation middleware
+func (sh *strictHandler) GetTelemetry(w http.ResponseWriter, r *http.Request) {
+	var request GetTelemetryRequestObject
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetTelemetry(ctx, request.(GetTelemetryRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetTelemetry")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetTelemetryResponseObject); ok {
+		if err := validResponse.VisitGetTelemetryResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// PatchTelemetry operation middleware
+func (sh *strictHandler) PatchTelemetry(w http.ResponseWriter, r *http.Request) {
+	var request PatchTelemetryRequestObject
+
+	var body PatchTelemetryJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.PatchTelemetry(ctx, request.(PatchTelemetryRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "PatchTelemetry")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(PatchTelemetryResponseObject); ok {
+		if err := validResponse.VisitPatchTelemetryResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// PutTelemetry operation middleware
+func (sh *strictHandler) PutTelemetry(w http.ResponseWriter, r *http.Request) {
+	var request PutTelemetryRequestObject
+
+	var body PutTelemetryJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		if !errors.Is(err, io.EOF) {
+			sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+			return
+		}
+	} else {
+		request.Body = &body
+	}
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.PutTelemetry(ctx, request.(PutTelemetryRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "PutTelemetry")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(PutTelemetryResponseObject); ok {
+		if err := validResponse.VisitPutTelemetryResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// PublishTelemetryEvent operation middleware
+func (sh *strictHandler) PublishTelemetryEvent(w http.ResponseWriter, r *http.Request) {
+	var request PublishTelemetryEventRequestObject
+
+	var body PublishTelemetryEventJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.PublishTelemetryEvent(ctx, request.(PublishTelemetryEventRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "PublishTelemetryEvent")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(PublishTelemetryEventResponseObject); ok {
+		if err := validResponse.VisitPublishTelemetryEventResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// StreamTelemetryEvents operation middleware
+func (sh *strictHandler) StreamTelemetryEvents(w http.ResponseWriter, r *http.Request, params StreamTelemetryEventsParams) {
+	var request StreamTelemetryEventsRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.StreamTelemetryEvents(ctx, request.(StreamTelemetryEventsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "StreamTelemetryEvents")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(StreamTelemetryEventsResponseObject); ok {
+		if err := validResponse.VisitStreamTelemetryEventsResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"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",
+	"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",
+	"/wEAAP//c4aJWK9pAQA=",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file

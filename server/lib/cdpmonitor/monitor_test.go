@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/kernel/kernel-images/server/lib/events"
+	oapi "github.com/kernel/kernel-images/server/lib/oapi"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -87,9 +88,10 @@ func TestScreenshot(t *testing.T) {
 		require.Eventually(t, func() bool { return captureCount.Load() == 1 }, 2*time.Second, 20*time.Millisecond)
 
 		ev := ec.waitFor(t, "monitor_screenshot", 2*time.Second)
-		assert.Equal(t, events.CategorySystem, ev.Category)
-		assert.Equal(t, events.KindLocalProcess, ev.Source.Kind)
-		assert.Equal(t, "Page.loadEventFired", ev.Source.Event)
+		assert.Equal(t, events.System, ev.Category)
+		assert.Equal(t, oapi.LocalProcess, ev.Source.Kind)
+		require.NotNil(t, ev.Source.Event)
+		assert.Equal(t, "Page.loadEventFired", *ev.Source.Event)
 		var data map[string]any
 		require.NoError(t, json.Unmarshal(ev.Data, &data))
 		assert.NotEmpty(t, data["png"])
