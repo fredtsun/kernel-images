@@ -58,6 +58,7 @@ type Monitor struct {
 	lastScreenshotAt   atomic.Int64                                              // unix millis of last capture
 	screenshotInFlight atomic.Bool                                               // true while a captureScreenshot goroutine is running
 	screenshotFn       func(ctx context.Context, displayNum int) ([]byte, error) // nil → real ffmpeg
+	screenshotEnabled  func() bool                                               // nil → always capture; gates ffmpeg on the screenshot category
 
 	// bindingRateMu guards bindingLastSeen.
 	bindingRateMu   sync.Mutex
@@ -78,17 +79,19 @@ type Monitor struct {
 }
 
 // New creates a Monitor. displayNum is the X display for ffmpeg screenshots.
-func New(upstreamMgr UpstreamProvider, publish PublishFunc, displayNum int, log *slog.Logger) *Monitor {
+// screenshotEnabled gates screenshot capture; a nil predicate always captures.
+func New(upstreamMgr UpstreamProvider, publish PublishFunc, displayNum int, log *slog.Logger, screenshotEnabled func() bool) *Monitor {
 	m := &Monitor{
-		upstreamMgr:     upstreamMgr,
-		publish:         publish,
-		displayNum:      displayNum,
-		log:             log,
-		sessions:        make(map[string]targetInfo),
-		computedStates:  make(map[string]*computedState),
-		pending:         make(map[int64]chan cdpMessage),
-		pendingRequests: make(map[string]networkReqState),
-		bindingLastSeen: make(map[string]time.Time),
+		upstreamMgr:       upstreamMgr,
+		publish:           publish,
+		displayNum:        displayNum,
+		log:               log,
+		screenshotEnabled: screenshotEnabled,
+		sessions:          make(map[string]targetInfo),
+		computedStates:    make(map[string]*computedState),
+		pending:           make(map[int64]chan cdpMessage),
+		pendingRequests:   make(map[string]networkReqState),
+		bindingLastSeen:   make(map[string]time.Time),
 	}
 	m.lifecycleCtx = context.Background()
 	m.mainSessionID.Store(mainSessionUnset)
@@ -398,7 +401,7 @@ func (m *Monitor) initSession(ctx context.Context) {
 		m.publish(events.Event{
 			Ts:       time.Now().UnixMicro(),
 			Type:     EventMonitorInitFailed,
-			Category: events.System,
+			Category: events.Monitor,
 			Source:   oapi.BrowserEventSource{Kind: oapi.LocalProcess},
 			Data:     initFailedData,
 		})
@@ -499,7 +502,7 @@ func (m *Monitor) handleUpstreamRestart(ctx context.Context, newURL string) {
 	m.publish(events.Event{
 		Ts:       time.Now().UnixMicro(),
 		Type:     EventMonitorDisconnected,
-		Category: events.System,
+		Category: events.Monitor,
 		Source:   oapi.BrowserEventSource{Kind: oapi.LocalProcess},
 		Data:     disconnectedData,
 	})
@@ -533,7 +536,7 @@ func (m *Monitor) handleUpstreamRestart(ctx context.Context, newURL string) {
 			m.publish(events.Event{
 				Ts:       time.Now().UnixMicro(),
 				Type:     EventMonitorReconnectFailed,
-				Category: events.System,
+				Category: events.Monitor,
 				Source:   oapi.BrowserEventSource{Kind: oapi.LocalProcess},
 				Data:     reconnectFailedData,
 			})
@@ -558,7 +561,7 @@ func (m *Monitor) handleUpstreamRestart(ctx context.Context, newURL string) {
 	m.publish(events.Event{
 		Ts:       time.Now().UnixMicro(),
 		Type:     EventMonitorReconnected,
-		Category: events.System,
+		Category: events.Monitor,
 		Source:   oapi.BrowserEventSource{Kind: oapi.LocalProcess},
 		Data:     reconnectedData,
 	})
