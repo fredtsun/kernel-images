@@ -15,8 +15,10 @@ func TestLoad(t *testing.T) {
 		wantCfg *Config
 	}{
 		{
-			name: "defaults (no env set)",
-			env:  map[string]string{},
+			name: "defaults (only chromium log path set)",
+			env: map[string]string{
+				"CHROMIUM_LOG_PATH": "/var/log/supervisord/chromium",
+			},
 			wantCfg: &Config{
 				Port:                     10001,
 				FrameRate:                10,
@@ -31,6 +33,7 @@ func TestLoad(t *testing.T) {
 				ChromeDriverProxyPort:    9224,
 				ChromeDriverUpstreamAddr: "127.0.0.1:9225",
 				DevToolsProxyAddr:        "127.0.0.1:9222",
+				ChromiumLogPath:          "/var/log/supervisord/chromium",
 			},
 		},
 		{
@@ -48,6 +51,7 @@ func TestLoad(t *testing.T) {
 				"SCALE_TO_ZERO_COOLDOWN":     "5s",
 				"CHROMEDRIVER_PROXY_PORT":    "5432",
 				"CHROMEDRIVER_UPSTREAM_ADDR": "127.0.0.1:9999",
+				"CHROMIUM_LOG_PATH":          "/var/log/custom/chromium",
 			},
 			wantCfg: &Config{
 				Port:                     12345,
@@ -63,6 +67,7 @@ func TestLoad(t *testing.T) {
 				ChromeDriverProxyPort:    5432,
 				ChromeDriverUpstreamAddr: "127.0.0.1:9999",
 				DevToolsProxyAddr:        "127.0.0.1:9876",
+				ChromiumLogPath:          "/var/log/custom/chromium",
 			},
 		},
 		{
@@ -70,6 +75,7 @@ func TestLoad(t *testing.T) {
 			env: map[string]string{
 				"DEVTOOLS_PROXY_PORT": "7777",
 				"DEVTOOLS_PROXY_ADDR": "10.0.0.1:1234",
+				"CHROMIUM_LOG_PATH":   "/var/log/supervisord/chromium",
 			},
 			wantCfg: &Config{
 				Port:                     10001,
@@ -85,40 +91,46 @@ func TestLoad(t *testing.T) {
 				ChromeDriverProxyPort:    9224,
 				ChromeDriverUpstreamAddr: "127.0.0.1:9225",
 				DevToolsProxyAddr:        "10.0.0.1:1234",
+				ChromiumLogPath:          "/var/log/supervisord/chromium",
 			},
 		},
 		{
 			name: "negative display num",
 			env: map[string]string{
-				"DISPLAY_NUM": "-1",
+				"DISPLAY_NUM":       "-1",
+				"CHROMIUM_LOG_PATH": "/var/log/supervisord/chromium",
 			},
 			wantErr: true,
 		},
 		{
 			name: "frame rate too high",
 			env: map[string]string{
-				"FRAME_RATE": "1201",
+				"FRAME_RATE":        "1201",
+				"CHROMIUM_LOG_PATH": "/var/log/supervisord/chromium",
 			},
 			wantErr: true,
 		},
 		{
 			name: "max size too big",
 			env: map[string]string{
-				"MAX_SIZE_MB": "10001",
+				"MAX_SIZE_MB":       "10001",
+				"CHROMIUM_LOG_PATH": "/var/log/supervisord/chromium",
 			},
 			wantErr: true,
 		},
 		{
 			name: "missing ffmpeg path (set to empty)",
 			env: map[string]string{
-				"FFMPEG_PATH": "",
+				"FFMPEG_PATH":       "",
+				"CHROMIUM_LOG_PATH": "/var/log/supervisord/chromium",
 			},
 			wantErr: true,
 		},
 		{
 			name: "missing output dir (set to empty)",
 			env: map[string]string{
-				"OUTPUT_DIR": "",
+				"OUTPUT_DIR":        "",
+				"CHROMIUM_LOG_PATH": "/var/log/supervisord/chromium",
 			},
 			wantErr: true,
 		},
@@ -126,7 +138,13 @@ func TestLoad(t *testing.T) {
 			name: "missing chromedriver upstream addr (set to empty)",
 			env: map[string]string{
 				"CHROMEDRIVER_UPSTREAM_ADDR": "",
+				"CHROMIUM_LOG_PATH":          "/var/log/supervisord/chromium",
 			},
+			wantErr: true,
+		},
+		{
+			name:    "missing chromium log path (unset)",
+			env:     map[string]string{},
 			wantErr: true,
 		},
 	}

@@ -31,6 +31,11 @@ type Config struct {
 	// DevTools proxy configuration
 	DevToolsProxyPort int  `envconfig:"DEVTOOLS_PROXY_PORT" default:"9222"`
 	LogCDPMessages    bool `envconfig:"LOG_CDP_MESSAGES" default:"false"`
+	// Log file the DevTools upstream manager tails for Chromium's
+	// "DevTools listening on ws://" line. Deployment-specific (the container's
+	// supervisord conf and local dev point it at different files), so it has
+	// no default: the deployment must supply it.
+	ChromiumLogPath string `envconfig:"CHROMIUM_LOG_PATH"`
 
 	// How long to wait after the last active request before re-enabling scale-to-zero.
 	ScaleToZeroCooldown time.Duration `envconfig:"SCALE_TO_ZERO_COOLDOWN" default:"1s"`
@@ -66,6 +71,7 @@ func (c *Config) LogValue() slog.Value {
 		slog.String("ffmpeg_path", c.PathToFFmpeg),
 		slog.Int("devtools_proxy_port", c.DevToolsProxyPort),
 		slog.Bool("log_cdp_messages", c.LogCDPMessages),
+		slog.String("chromium_log_path", c.ChromiumLogPath),
 		slog.Duration("scale_to_zero_cooldown", c.ScaleToZeroCooldown),
 		slog.Int("chromedriver_proxy_port", c.ChromeDriverProxyPort),
 		slog.String("chromedriver_upstream_addr", c.ChromeDriverUpstreamAddr),
@@ -113,6 +119,9 @@ func validate(config *Config) error {
 	}
 	if config.DevToolsProxyAddr == "" {
 		return fmt.Errorf("DEVTOOLS_PROXY_ADDR is required")
+	}
+	if config.ChromiumLogPath == "" {
+		return fmt.Errorf("CHROMIUM_LOG_PATH is required")
 	}
 
 	return nil

@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-.PHONY: oapi-generate build dev test test-unit test-e2e clean
+.PHONY: oapi-generate build dev dev-browser dev-local test test-unit test-e2e clean
 
 BIN_DIR ?= $(CURDIR)/bin
 RECORDING_DIR ?= $(CURDIR)/recordings
@@ -29,6 +29,19 @@ build: | $(BIN_DIR)
 
 dev: build $(RECORDING_DIR)
 	OUTPUT_DIR=$(RECORDING_DIR) DISPLAY_NUM=$(DISPLAY_NUM) ./bin/api
+
+# One-time setup for dev-local: fetch Chrome for Testing (same distribution
+# the container images use) into .dev/browser. Headful-capable; dev-local
+# runs it with a visible window unless HEADLESS=1.
+dev-browser:
+	npx --yes @puppeteer/browsers install chrome@stable --path "$(CURDIR)/.dev/browser"
+
+# Local dev loop: launch the .dev browser as the CDP upstream, then run the
+# server against it (see scripts/dev-local.sh). API on :10001, CDP proxy on
+# :9222. Requires `make dev-browser` once, or CHROME_BIN pointing at a
+# Chromium-family binary.
+dev-local: build $(RECORDING_DIR)
+	OUTPUT_DIR=$(RECORDING_DIR) DISPLAY_NUM=$(DISPLAY_NUM) ./scripts/dev-local.sh ./bin/api
 
 # `test` runs unit + e2e. The two are split so callers (e.g. the Hypeman CI job)
 # can run just the e2e suite, and so e2e logs stream as they run instead of
