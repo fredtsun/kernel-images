@@ -98,7 +98,7 @@ Deployed successfully!
 
 ## Connect to the browser via Chrome DevTools Protocol
 
-Port `9222` is exposed via `ncat`, allowing you to connect Chrome DevTools Protocol-based browser frameworks like Playwright and Puppeteer (and CDP-based SDKs like Browser Use). You can use these frameworks to drive the browser in the cloud. You can also disconnect from the browser and reconnect to it.
+Port `9222` exposes a DevTools proxy in front of the browser, allowing you to connect Chrome DevTools Protocol-based browser frameworks like Playwright and Puppeteer (and CDP-based SDKs like Browser Use). You can use these frameworks to drive the browser in the cloud. The proxy tracks the browser across restarts, so you can also disconnect and reconnect to it.
 
 First, fetch the browser's CDP websocket endpoint:
 
@@ -145,7 +145,7 @@ You can use the embedded live view to monitor and control the browser. The live 
 
 ## Replay Capture
 
-You can use the embedded recording server to capture recordings of the entire screen in our headful images. It allows for one recording at a time and can be enabled with `WITH_KERNEL_IMAGES_API=true`
+You can use the embedded recording server to capture recordings of the entire screen in our headful images. It allows for one recording at a time. The API server is part of the image; `run-docker.sh` exposes it on host port `444`.
 
 For example:
 
@@ -153,18 +153,18 @@ For example:
 cd images/chromium-headful
 export IMAGE=kernel-docker
 ./build-docker.sh
-WITH_KERNEL_IMAGES_API=true ENABLE_WEBRTC=true ./run-docker.sh
+ENABLE_WEBRTC=true ./run-docker.sh
 
 # 1. Start a new recording
-curl http://localhost:10001/recording/start -d {}
+curl http://localhost:444/recording/start -d {}
 
 # recording in progress - run your agent
 
 # 2. Stop recording
-curl http://localhost:10001/recording/stop -d {}
+curl http://localhost:444/recording/stop -d {}
 
 # 3. Download the recorded file
-curl http://localhost:10001/recording/download --output recording.mp4
+curl http://localhost:444/recording/download --output recording.mp4
 ```
 
 Note: the recording file is encoded into a H.264/MPEG-4 AVC video file. [QuickTime has known issues with playback](https://discussions.apple.com/thread/254851789?sortBy=rank) so please make sure to use a compatible media player!

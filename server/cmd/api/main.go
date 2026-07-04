@@ -85,9 +85,9 @@ func main() {
 	// ws conn tracker
 	wsRegistry := wsdrain.New()
 
-	// DevTools WebSocket upstream manager: tail Chromium supervisord log
-	const chromiumLogPath = "/var/log/supervisord/chromium"
-	upstreamMgr := devtoolsproxy.NewUpstreamManager(chromiumLogPath, slogger)
+	// DevTools WebSocket upstream manager: tail the Chromium log for the
+	// DevTools URL (in the image, supervisord's chromium stdout_logfile)
+	upstreamMgr := devtoolsproxy.NewUpstreamManager(config.ChromiumLogPath, slogger)
 	upstreamMgr.Start(ctx)
 
 	// Initialize Neko authenticated client
