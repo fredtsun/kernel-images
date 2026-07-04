@@ -62,10 +62,13 @@ Smoke test (drives the browser over CDP and exercises REST endpoints):
 uv run scripts/drive.py
 ```
 
-> **No sandbox locally:** `/process` and `/fs` endpoints operate on your real
-> machine when run outside the container. Endpoints that need the container's
-> X/supervisord stack (`/computer`, `/chromium` lifecycle, display capture)
-> won't work locally.
+> **No sandbox locally:** the server implements `/process` and `/fs` as plain
+> OS calls — in production the *container* provides the isolation. Run outside
+> it, they operate on your real machine, and the ports bind all interfaces.
+> Endpoints that shell out to the container's Linux tooling fail per request
+> locally: `/computer` (xdotool), `/chromium` lifecycle (supervisorctl), and
+> `/display` (xrandr/Neko). `/recording` works, but captures your machine's
+> screen.
 
 `make dev` runs the bare server without a browser. It requires
 `CHROMIUM_LOG_PATH` to point at a log containing a Chromium
